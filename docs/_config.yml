@@ -5,7 +5,7 @@ title: "Balsa.SDK"
 # with your folder name, otherwise leave it empty
 baseurl: ""
 # (string) Description of your wiki
-description: 
+description: "Addon SDK for Balsa Model Flight Sim" | Documentation
 # (boolean) Enable/disable wiki page list in sidebar
 show_wiki_pages: true
 # (integer) Maximum number of wiki page to shown in sidebar
