@@ -10,12 +10,12 @@ Balsa currently requires Unity version 2018.3.13.
 
 You should make sure you are using the right version, to avoid potential issues. If you are unsure, look up your version in the Help/About Unity menu option:
 
-![](wiki/images/unityabout.png)
+![](docs/wiki/images/unityabout.png)
 
 The easiest way to install Unity is with the Unity Hub, [available here](https://store.unity.com/download?ref=personal)
 
 In the Hub application, you can select different versions to install in the Installs tab.
-![](wiki/images/unityhubinstall.png)
+![](docs/wiki/images/unityhubinstall.png)
 
 Alternatively, standalone installers for Unity are available here: https://unity3d.com/unity/whats-new/2018.3.13
 
@@ -34,5 +34,5 @@ The Balsa SDK can be installed in several ways:
 You can clone/extract the SDK files anywhere you want, but avoid placing it inside the game's own install folder, as Steam is likely to move files around in there and potentially mess things up. 
 
 
-Once you have Unity installed, you can open the UnityAddons project included in this SDK. It's the fastest way to get started making addons. You can learn more about it on the [UnityAddons Project Overview](wiki/UnityAddonsOverview.md) page.
+Once you have Unity installed, you can open the UnityAddons project included in this SDK. It's the fastest way to get started making addons. You can learn more about it on the [UnityAddons Project Overview](docs/wiki/UnityAddonsOverview.md) page.
 
