@@ -34,8 +34,5 @@ You can clone/extract the SDK files anywhere you want, but I would avoid placing
 
 
 
-Once you have Unity installed, you can open the UnityAddons project, included in this SDK. It's the fastest way to get started making addons.
+Once you have Unity installed, you can open the UnityAddons project, included in this SDK. It's the fastest way to get started making addons. You can learn more about it on the [UnityAddons Overview] page.
 
-The UnityAddons project includes the Balsa Addon Tools, which are a set of Unity editor tools to help you generate and export addons into the game.
-
-To start the UnityAddons project, open Unity
