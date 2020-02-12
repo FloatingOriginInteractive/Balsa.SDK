@@ -27,7 +27,7 @@ The Balsa SDK can be installed in several ways:
  * If you know your way around Git, you can clone this repository to get started.  
  * You can also use this Github repository as a template to create your own copy in your own account. 
  * If you don't care about any of that and just want the SDK, click the Download Zip button in the *Clone or Download* Menu in the main page, to download the whole thing as a zip file:
- ![](wiki/images/downloadrepo.png)
+ ![](docs/wiki/images/downloadrepo.png)
 
 
 
