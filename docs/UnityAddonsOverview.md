@@ -9,7 +9,7 @@ To start the UnityAddons project, open Unity, and on the start page, select the 
 
 ![](images/openunityaddonsproject.png)
 
-If you don't see the project on the list, add it by clicking the **Open** button on the top, and navigate to the project folder in *<balsa sdk install location>/UnityAddons*.
+If you don't see the project on the list, add it by clicking the **Open** button on the top, and navigate to the project folder in `<balsa sdk install location>/UnityAddons`.
 
 Unity will present you with a nice progress bar as it imports assets and scripts for some time, after which it will open the project.
 
