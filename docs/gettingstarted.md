@@ -29,10 +29,10 @@ The Balsa SDK can be installed in several ways:
  * If you don't care about any of that and just want the SDK, click the Download Zip button in the *Clone or Download* Menu in the main page, to download the whole thing as a zip file:
  ![](downloadRepo.png)
 
-You can clone/extract the SDK files anywhere you want, but I would avoid placing it inside the game's own install folder, as Steam is likely to move files around in there and potentially mess things up. 
 
 
+You can clone/extract the SDK files anywhere you want, but avoid placing it inside the game's own install folder, as Steam is likely to move files around in there and potentially mess things up. 
 
 
-Once you have Unity installed, you can open the UnityAddons project, included in this SDK. It's the fastest way to get started making addons. You can learn more about it on the [UnityAddons Overview] page.
+Once you have Unity installed, you can open the UnityAddons project included in this SDK. It's the fastest way to get started making addons. You can learn more about it on the [UnityAddons Overview](UnityAddonsOverview.md) page.
 
