@@ -1,2 +1,5 @@
 # Balsa Addons Software Development Kit
-A starting template project for creating Balsa addons, including the tools to set up and export content for the game.
+
+Welcome to the Balsa Addons SDK documentation site. Here you can find information to get you started making addons for Balsa Model Flight Simulator.
+
+Keep in mind that just as the game, these pages are also a work in progress.
