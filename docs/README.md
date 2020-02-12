@@ -13,7 +13,7 @@ Balsa was designed to support modding from the start. You can create new content
 
 ## Steam Workshop Integration
 
-Balsa addons can be published online using the Steam Workshop. The SDK provides a tool to help you publish your addon to the Workshop. See the [Balsaworks Uploader](wiki/balsaworks/uploader.md) page for more information on how to use it.
+Balsa addons can be published online using the Steam Workshop. The SDK provides a tool to help you publish your addon to the Workshop. See the [Balsaworks Uploader](wiki/uploader.md) page for more information on how to use it.
 
 
 
