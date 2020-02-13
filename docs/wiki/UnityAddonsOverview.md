@@ -7,7 +7,7 @@ It is a pre-configured Unity project, and it includes the Balsa Addon Tools, a s
 
 To start the UnityAddons project, open Unity, and on the start page, select the UnityAddons project:
 
-![](images/openunityaddonsproject.png)
+![](img/openunityaddonsproject.png)
 
 If you don't see the project on the list, add it by clicking the **Open** button on the top, and navigate to the project folder in `Balsa.SDK/BalsaAddons_Unity`.
 
@@ -18,7 +18,7 @@ Unity will present you with a nice progress bar as it imports assets and scripts
 
 A freshly-opened addons project will likely look like this:
 
-![](images/unityaddonsprojectworkspace.png)
+![](img/unityaddonsprojectworkspace.png)
 
 
 In the project assets, you'll find the included example assets and a sample setup scene with some example addons ready to be exported. Use these for reference when setting up your own.
