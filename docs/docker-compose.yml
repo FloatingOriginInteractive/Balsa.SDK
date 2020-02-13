@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  github-wiki-skeleton:
+  github-wiki-theme:
     build: 
       context: .
       dockerfile: .env-files/Dockerfile.github
@@ -13,7 +13,7 @@ services:
      - .:/srv/jekyll
      - github_site:/srv/jekyll/_site
     command: bundle exec jekyll serve --host 0.0.0.0 --force_polling --livereload
-  gitlab-wiki-skeleton:
+  gitlab-wiki-theme:
     build: 
       context: .
       dockerfile: .env-files/Dockerfile.gitlab

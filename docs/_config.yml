@@ -68,6 +68,11 @@ kramdown:
   syntax_highlighter: rouge
 
 defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"
  - 
     scope:
       path: "wiki"
@@ -114,7 +119,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-titles-from-headings
   - jemoji
-  - jekyll-gitlab-metadata
 
 
 #
@@ -145,6 +149,6 @@ inc_before_tools :
 inc_after_tools : 
 
 inc_before_page_list :
-inc_after_page_list : sidebar.html
+inc_after_page_list :
 inc_before_post_list :
 inc_after_post_list :
