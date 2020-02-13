@@ -123,14 +123,19 @@ Balsa addon mods rely on Unity's Assetbundle system, which allows Unity games to
 
 --------
 
+# The SDK Assetbundle Tools
+
 In Unity, you will find two tools for creating addons: The PartAssetBundleTool is used to export Parts, and the BalsaAssetBundleTool is used to export Maps.
 
-### Part Assetbundle Tools
+Both of them can be found under the Tools/Floating Origin Studios/ menu on the toolbar. 
 
+## Part Assetbundle Tools
+The Part tool window allows you to set up parts for exporting. It is designed to facilitate mass-exporting multiple parts at once, based on a workflow where you have all your parts set up inside a setup scene, or saved as prefabs in a folder, or both. 
 
+The Part tool window also has options to export your parts, and also automatically generate a modcfg file, containing entries for your parts.
 
 ### The Part addon exporting pipeline
-The Part addon tool export system works over three principal steps: Pre-processing, Building the actual assetbundles, and a final Post-Processing step
+The Part addon tool export system works over three main steps: Pre-processing, Building the actual assetbundles, and a final Post-Processing step
 
 #### Step 1. Pre-Processing:
 During this step, the addon tool will create the prefabs to be exported during the assetbundle build. Your parts are already saved as prefabs, but the ones that get exported are somewhat different. The addon tools take care of maintaining these export copies for you, so you can work with just your part prefabs.
@@ -143,12 +148,29 @@ At this point you have exported your assetbundle files, but they are not yet rea
 
 During post-processing, the addon tool will update the output .manifest files for any dependencies, generate all part.cfg files for your parts and add the .fob extension to the generated assetbundle files. 
 
+
+
+
 ```
 Protip: If you've only made changes to the inspector data of the top level part gameobject (ie, no changes to the gameobject itself or to child components), you can get away with only post-processing, or resaving the cfg file, as the inspector data is saved to the cfg, not to the asset itself.
 ```
+-------
 
+## The Balsa AssetBundle Tools Window
+When working with Maps, you'll want to use the BalsaAssetBundleTools window for export. This window is similar to the Part Export Tools one, but it is actually far simpler.
+
+Because Maps don't require any pre-processing and aren't stored as prefabs, most of the work required to export them is related to setting up your assetbundles to output the unity scene itself. This is mostly done using the AssetBundleBrowser window.
+
+Once the assetbundles are exported, you only need to run the Post-processing steo in the BalsaAssetBundleTools window to make sure your map is fully ready to be loaded by the game.
+
+
+---------
+
+## Adding entries to your modcfg File
 
 Finally, you can add entries to your modcfg data to tell the game where to find assets in your exported files. 
+
+The entries for Parts and Maps are quite different, but you'll find good references and examples for both of them in the modcfg files contained in the Addons/basegame folder.
 
 
 
