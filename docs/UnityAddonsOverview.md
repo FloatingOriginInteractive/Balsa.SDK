@@ -89,6 +89,14 @@ And for Maps, you could also later have a look at:
 Literal Protip: If you master all of the above, you've already got a large part of the skills required to be an actual professional Technical Artist or Level Designer in game development!
 ```
 
+### Creating Assets
+
+This guide also does not cover using other software to create assets, such as 3D modeling packages or image editing software. Those are also going to be necessary to create your own addons (especially Parts), but just as with Unity, there are great resources out there on how to create 3D models and textures.
+
+Additionally, you are free to use any software you want to create those, as long as you can export files in formats Unity can import.
+
+
+
 
 ## Using Unity to Export Mods
 
