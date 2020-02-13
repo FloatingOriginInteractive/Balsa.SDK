@@ -24,6 +24,6 @@ copy /Y $(SolutionDir)$(OutDir)$(TargetFileName) <BalsaInstallFolder>\Addons\MyM
 ```  
 (remember to replace `<BalsaInstallFolder>` with the actual path to your Balsa install)
 
-!()[img/vsaddonautomateoutputcopy.png]
+![](img/vsaddonautomateoutputcopy.png)
 
 Now, every time you run a successful build, VS should take care of copying over the dll file to where it needs to be.
