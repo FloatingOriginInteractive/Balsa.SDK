@@ -10,9 +10,11 @@ It assumes you have Visual Studio installed already. If not, you can [get it her
 ## Set up your Mod Project 
 This guide assumes you've already gone over the steps to [Create your Mod Folder](gettingstarted.md). If you haven't already, give that a read first.
 
+--------
 
+:construction: To do: add VS project setup steps
 
-
+----------
 
 ### [Optional]: Automate copying output files to the mod folder
 You can automate the process of copying over your output dll file from your VS solution to your mod folder in Balsa/Addons/, so that the output dll file gets copied at the end of each build.
