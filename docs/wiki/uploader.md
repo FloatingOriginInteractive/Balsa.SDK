@@ -15,13 +15,21 @@ Addon mods, however, need their own tool to be uploaded. This is done using the 
 You will find the uploader tool in the SDK folder, at `<Balsa SDK install>/balsaworks/uploader`.
 
 ### Manual usage
-The uploader is a console application, and it can be used manually (by double-clicking the .exe file), or by commandline (by invoking uploader.exe in a command prompt). 
+The uploader is a console application. It can be used manually (by double-clicking the .exe file) like any other executable. In manual mode, the program will ask you to enter the path to your mod's folder, either by typing it or (much more easily) by dragging in the folder into the window. 
+
+When running manually, the program will also pause before it ends, allowing you to read the output directly in the console.
+
 
 ### CLI Usage
-The uploader can also be called by other programs as part of an automated deployment system, by calling it with the `--folderpath` argument:
-`uploader.exe --folderPath "path/to/my/mod"`
 
-Doing so will start the uploader in CLI mode, which skips any steps where manual input is required (except in case of a first-time publish, see below)
+The uploader can also be called by other programs as part of an automated deployment system, by calling it with the ` --folderpath ` argument:
+
+
+```uploader.exe --folderPath "path/to/my/mod" ```
+
+Doing so will start the uploader in CLI mode, which skips any steps where manual input is required (except in case of a first-time publish, see below). In CLI mode, the program will not pause until it ends. 
+
+In CLI mode, all output is sent to stdout, and the program will return non zero values if it fails for any reason (it returns zero if it finishes successfully). You can use this to integrate the uploader into an automation job.
 
 
 ## Uploading for the first time
@@ -31,6 +39,7 @@ To start uploading your mod, simply drag in the mod folder into the console wind
 The uploader will look for a file called `modexport.cfg` in the mod folder. This file is where data associated with the mod publishing is stored.
 
 If the modexport file is not found, the uploader will create a default one. It will then prompt you to edit it, and fill out the needed information. 
+
 Run the uploader too again afterwards to continue the upload process.
 
 
