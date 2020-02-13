@@ -31,8 +31,5 @@ Check out the rest of this wiki to learn more about making different types of Ad
 
 
 
-For plugin-type mods, check out the [Visual Studio Setup Guide](balsaworks.vsSetup.md) to get started with a Visual Studio project for building code mods.
-
-
 
 
