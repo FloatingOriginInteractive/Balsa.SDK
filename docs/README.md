@@ -29,6 +29,9 @@ Throughout this documentation, we use the word 'Mod' when referring to anything 
 * **Localization Mods:**
 	You can also make mods that add or modify the text in the game. This is typically used to create translations of the game text into new languages, or add new terms for localizing your own mod. It can also be abused to modify the existing game texts as well. Localization mods consist mainly of .loc files, which are CSV formatted text files containing the terms and their translations to various languages.
 
+* **Manual Pages:**  
+	You can also write your own manual pages and include them in your mod. Manual pages are text-based *.man* files. They contain some metadata using cfg-style syntax, and a text section which supports Balsa's SRT notation, which is a Markdown-like syntax.  
+	Like .loc files, .man files don't need to be listed in a modcfg entry. The game will load all .man files it can find inside the Addons folder system.
 
 
 With the exception of Content Mods, all other mod types are published to the Workshop using the [Balsaworks Uploader tool](uploader.md).
