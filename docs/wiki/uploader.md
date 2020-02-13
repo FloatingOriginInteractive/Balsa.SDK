@@ -22,7 +22,7 @@ When running manually, the program will also pause before it ends, allowing you 
 
 ### CLI Usage
 
-The uploader can also be called by other programs as part of an automated deployment system, by calling it with the ` --folderpath ` argument:
+The uploader can also be run by commandline scripts, using the `--folderpath` argument:
 
 
 ```uploader.exe --folderPath "path/to/my/mod" ```
