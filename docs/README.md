@@ -4,7 +4,7 @@ Welcome to the Balsa Addons SDK documentation site. Here you can find informatio
 Keep in mind that just as the game, these pages are also a work in progress.
 
 ## Setting Up
-If you're just getting started, check out the [Getting Started](wiki/gettingstarted.md) guide.
+If you're just getting started, check out the [Getting Started](gettingstarted.md) guide.
 
 
 ## Balsa Modding 101
@@ -27,7 +27,7 @@ Throughout this documentation, we use the word 'Mod' when referring to anything 
 	Plugin Mods contain code, in the form of C# Assemblies. Plugin mods can be created using Visual Studio, and compiled into .dll files that the game can load.
   
 
-Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](wiki/uploader.md).
+Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](uploader.md).
 
 
 
