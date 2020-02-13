@@ -49,7 +49,7 @@ Config Mods are the simplest type of mod, requiring only a text editor. Read mor
 Addon mods such as new parts or maps are made in Unity itself. For these, the SDK includes the BalsaAddons_Unity project. It's the fastest way to get started making addons. You can learn more about it on the [Unity Addons Project Overview](UnityAddonsOverview.md) page.
 
 #### C# Plugins
-Plugin Mods are code mods, and those are created in Visual Studio. Check out the [Visual Studio Setup Guide](vsPRojectSetup.md) to get started with a Plugin project.
+Plugin Mods are code mods, and those are created in Visual Studio. Check out the [Visual Studio Setup Guide](vsProjectSetup.md) to get started with a Plugin project.
 
 #### Localizations
 New Localization files can also be added as mod content. These are slightly different from other mod types, in that they don't require a modcfg entry. The game will load any .loc file located inside the Balsa/Addons folder system. .loc files are really just CSV (comma-separated values) text files, containing a table of terms and their translations to different languages. 
