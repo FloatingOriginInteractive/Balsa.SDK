@@ -67,19 +67,20 @@ Note that your mod is not published yet at this stage. Only you can see it by de
 
 ## Mod Installation on other Clients
 
-When a user subscribes to an addon mod, it gets downloaded by Steam to a local folder Balsa workshop content. 
+When a user subscribes to an addon mod, it gets downloaded by Steam to a local folder for Balsa workshop content. This folder is not part of the game's Addons directory.
 This means that unlike content mods (craft and mission files), Addon mods are not automatically loaded into the game. 
 
-Before the addon mod is loaded, it must first be enabled in the game's Steam Mods screen, in the settings menu. 
+Before the addon mod can be loaded, it must first be enabled in the game's Steam Mods screen, in the settings menu. 
 
 Enabling the mod will create a junction point (aka a symbolic link) in the game's Addons folder, connecting it to the workshop folder where the mod is. This allows the game to load workshop content without having to move or copy actual files.
-These symlinks are also the mechanism by which workshop mods can be enabled and disabled in game. When the mod is enabled, the symlink is created. When disabling, the link is deleted. This does not modify the content in the workshop folder.
 
+These symlinks are the mechanism by which workshop mods can be enabled and disabled in game. When the mod is enabled, the symlink is created. When it is disabled, the link is deleted. This does not modify the content in the workshop folder.
 
 
 ## Source Mods
 
 If your mod is locally installed in the game's Addons folder, the game will detect it as a Local mod. This prevents it from being overwritten in case you subscribe to it over the workshop.
+
 Mind that local mods cannot be toggled on and off in the game's Steam mod manager, as the game will not modify mod folders that aren't symlinks to workshop content.
 
 
