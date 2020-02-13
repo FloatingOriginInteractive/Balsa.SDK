@@ -27,7 +27,7 @@ Alternatively, standalone installers for Unity are available here: https://unity
 
 -------
 
-# The BalsaAddons_Unity Project
+## The BalsaAddons_Unity Project
 The BalsaAddons_Unity project is the easiest way to get started making addon mods for Balsa.
 
 It is a pre-configured Unity project, and it includes the Balsa Addon Tools, a set of Unity editor tools to help you generate and export addons into the game.
@@ -89,7 +89,7 @@ And for Maps, you could also later have a look at:
 Literal Protip: If you master all of the above, you've already got a large part of the skills required to be an actual professional Technical Artist or Level Designer in game development!
 ```
 
-### Creating Assets
+## Creating Assets
 
 This guide also does not cover using other software to create assets, such as 3D modeling packages or image editing software. Those are also going to be necessary to create your own addons (especially Parts), but just as with Unity, there are great resources out there on how to create 3D models and textures.
 
@@ -110,7 +110,7 @@ This guide is only an overview, so we won't get into the specifics of how to cre
 
 
 
-### Exporting Addon files
+### Exported Addon Files Overview
 
 Balsa addon mods rely on Unity's Assetbundle system, which allows Unity games to import additional content at runtime. Balsa addons are exported as a set of three files:
 
