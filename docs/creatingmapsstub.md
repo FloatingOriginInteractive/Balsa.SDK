@@ -1,9 +1,11 @@
 :warning: This page is only a stub
   
-    
+  
     
    -------------
-   
+  
+  # Setting up Map Boundaries 
+  
    
    Part one: Create a template for the map texture
 
