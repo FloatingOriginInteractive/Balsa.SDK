@@ -7,8 +7,8 @@ This guide will take you through the steps to set up a Plugin mod project in Vis
 It assumes you have Visual Studio installed already. If not, you can [get it here](https://visualstudio.microsoft.com/vs/community/).
 
 
-
-
+## Set up your Mod Project 
+This guide assumes you've already gone over the steps to [Create your Mod Folder](modfoldersetupguide.md). If you haven't already, give that a read first.
 
 
 
