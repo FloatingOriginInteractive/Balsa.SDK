@@ -5,7 +5,7 @@ title: "Balsa.SDK"
 # with your folder name, otherwise leave it empty
 baseurl: 
 # (string) Description of your wiki
-description: "Addon SDK for Balsa Model Flight Sim | Documentation"
+description: "Addon SDK for Balsa Model Flight Sim"
 # (boolean) Enable/disable wiki page list in sidebar
 show_wiki_pages: true
 # (integer) Maximum number of wiki page to shown in sidebar
@@ -35,7 +35,7 @@ wiki_folder: "docs/wiki"
 use_github_wiki: false
 # (boolean) Enable "Edit with Prose.io" button in tools, it's a 3rd party
 # service to edit github markdown pages easily
-use_prose_io: true
+use_prose_io: false
 # Select search_engine component from:
 # - js: it uses a built in javascript component that uses generated js object
 # - js_rss: it uses a built in javascript component that uses generated  sitemap_full.xml to search inside your wiki with lunr library (slow and experimental)
