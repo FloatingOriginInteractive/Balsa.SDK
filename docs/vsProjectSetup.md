@@ -8,7 +8,7 @@ It assumes you have Visual Studio installed already. If not, you can [get it her
 
 
 ## Set up your Mod Project 
-This guide assumes you've already gone over the steps to [Create your Mod Folder](modfoldersetupguide.md). If you haven't already, give that a read first.
+This guide assumes you've already gone over the steps to [Create your Mod Folder](gettingstarted.md). If you haven't already, give that a read first.
 
 
 
