@@ -26,16 +26,8 @@ Throughout this documentation, we use the word 'Mod' when referring to anything 
 * **Plugin Mods:**
 	Plugin Mods contain code, in the form of C# Assemblies. Plugin mods can be created using Visual Studio, and compiled into .dll files that the game can load.
   
-  
-  
-    
- Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](uploader.md).
 
-
-
-
-## Steam Workshop Integration
-Balsa addons can be published online using the Steam Workshop. The SDK provides a tool to help you publish your addon to the Workshop. See the [Balsaworks Uploader](wiki/uploader.md) page for more information on how to use it.
+Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](uploader.md).
 
 
 
