@@ -8,11 +8,34 @@ If you're just getting started, check out the [Getting Started](wiki/gettingstar
 
 
 ## Balsa Modding 101
+Balsa was designed from the group up to support player-generated creations. Apart from vehicles and missions, you can create new content for the game, adding new Parts, Maps, or even expand the game itself with new features by creating C# plugins. 
 
-Balsa was designed to support modding from the start. You can create new content for the game to add new Parts and Maps (using the Addons Unity project and Balsa Addon Tools), or expand the game itself with new features, by creating C# plugins.
+Throughout this documentation, we use the word 'Mod' when referring to anything that can be shared with others using the Steam Workshop. Mods can then be further categorized like this:
+
+
+* **Content Mods:**
+
+  Content mods are submissions that only contain data files, such as .craft files for vehicles, or .scn files for missions. Content mods are exported to the Steam Workshop from inside the game itself.
+
+
+
+* **Addon Mods:**
+
+  Addons are mods that add extra content to the game, such as new parts, sceneries, etc. When we talk about Addons, we are referring to these types of mods, which are created using the BalsaAddons_Unity project, and exported for the game to load.
+  
+  
+  
+* **Plugin Mods:**
+
+  Plugin Mods contain code, in the form of C# Assemblies, which are .dll files. Plugin mods can be created using Visual Studio. 
+  
+    
+ Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](uploader.md).
+
+
+
 
 ## Steam Workshop Integration
-
 Balsa addons can be published online using the Steam Workshop. The SDK provides a tool to help you publish your addon to the Workshop. See the [Balsaworks Uploader](wiki/uploader.md) page for more information on how to use it.
 
 
