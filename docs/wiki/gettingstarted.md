@@ -16,7 +16,7 @@ You should make sure you are using the right version, to avoid potential issues.
 The easiest way to install Unity is with the Unity Hub, [available here](https://store.unity.com/download?ref=personal)
 
 In the Hub application, you can select different versions to install in the Installs tab.
-![](images/unityhubinstall.png)
+![](https://github.com/FloatingOriginInteractive/Balsa.SDK/raw/master/docs/wiki/images/unityhubinstall.png)
 
 Alternatively, standalone installers for Unity are available here: https://unity3d.com/unity/whats-new/2018.3.13
 
@@ -28,7 +28,7 @@ The Balsa SDK can be installed in several ways:
  * If you know your way around Git, you can clone this repository to get started.  
  * You can also use this Github repository as a template to create your own copy in your own account. 
  * If you don't care about any of that and just want the SDK, click the Download Zip button in the *Clone or Download* Menu in the main page, to download the whole thing as a zip file:
- ![](images/downloadrepo.png)
+ ![](https://github.com/FloatingOriginInteractive/Balsa.SDK/raw/master/docs/wiki/images/downloadrepo.png)
 
 
 
