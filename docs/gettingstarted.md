@@ -22,7 +22,7 @@ Regardless of which mod type you are making, your first step is to create a Mod 
 ### Setting up your Mod Folder
 The first step when starting any new Addon or Plugin mod is to create a mod folder in the game's Addon folder. This is located in `<Path to Steam Library>\steamapps\common\BALSA Model Flight Simulator\Addons` 
 
-!()[img/modfolderstructure.png]
+![](img/modfolderstructure.png)
 
 
 ### .modcfg Files
