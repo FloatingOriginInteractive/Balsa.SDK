@@ -12,7 +12,7 @@ Addon mods, however, need their own tool to be uploaded. This is done using the 
 
 ## Using the Uploader
 
-You will find the uploader tool in the SDK folder, at `<Balsa SDK install>/balsaworks/uploader`.
+You will find the uploader tool in the SDK folder, at `Balsa.SDK/balsaworks/uploader`.
 
 ### Manual usage
 The uploader is a console application. It can be used manually (by double-clicking the .exe file) like any other executable. In manual mode, the program will ask you to enter the path to your mod's folder, either by typing it or (much more easily) by dragging in the folder into the window. 
