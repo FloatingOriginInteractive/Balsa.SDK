@@ -25,11 +25,11 @@ show_downloads: true
 # (string) Specify branch rendered by gitpages allowing wiki tool buttons to work
 git_branch: "master/docs"
 # (string) Url of logo image, it can be full, absolute or relative.
-logo_url: "assets/logo.png"
+logo_url: "https://github.com/FloatingOriginInteractive/Balsa.SDK/raw/master/docs/assets/logo.png"
 # (string) The UA-XXXXX-Y code from google analytic to enable GA on your wiki
 google_analytics: 
 # (string) folder where wiki pages are stored, it's needed for tool buttons
-wiki_folder: "https://github.com/FloatingOriginInteractive/Balsa.SDK/raw/master/docs/assets/logo.png"
+wiki_folder: "docs/wiki"
 # (boolean) if you're using github wiki as submodule then this config
 # must be enabled to allow tool buttons to work properly
 use_github_wiki: false
