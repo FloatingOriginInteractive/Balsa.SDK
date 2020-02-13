@@ -27,7 +27,7 @@ Throughout this documentation, we use the word 'Mod' when referring to anything 
 	Plugin Mods contain code, in the form of C# Assemblies. Plugin mods can be created using Visual Studio, and compiled into .dll files that the game can load.
   
 
-Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](uploader.md).
+Both Addon and Plugin mods get published to the Workshop using the [Balsaworks Uploader tool](wiki/uploader.md).
 
 
 
