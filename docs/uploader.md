@@ -55,7 +55,7 @@ Once uploading completes, Steam returns an ID number that is unique to your mod 
 
 The uploader then writes that value back on to the modexport.cfg file. Do not change the ID manually, as that will disconnect your mod from the published item.
 
-Similarly, if you delete the modexport.cfg file, the uploader will treat it as a first-time upload the next time it runs. 
+Similarly, if you delete the modexport.cfg file, the uploader will treat it as a first-time upload the next time it runs. (so don't)
 
 
 ## After Uploading
@@ -86,3 +86,8 @@ Mind that local mods cannot be toggled on and off in the game's Steam mod manage
 
 
 
+## Modifying or Unpublishing a Published Mod
+
+If you need to modify your mod submission, or remove your mod from the workshop entirely, simply use the controls available in the workshop page. Once submitted, the workshop page gives you controls to edit the item, add new images and videos, as well as delete the whole thing if needed.
+
+To modify the mod content itself, simply run the uploader tool again on the mod folder after making changes. When uploading an item that already has a publish ID, the uploader will treat it as an edit operation on the existing item. Steam will then take care of updating all installs of your mod for all subscribers. (It should update within a few minutes. You can force it to update immediately using the 'Verify File Integrity' button in the game properties panel)
