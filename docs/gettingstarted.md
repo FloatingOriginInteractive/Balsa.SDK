@@ -5,8 +5,7 @@ This guide will take you through the steps to get started with the Addon SDK.
 
 The Balsa SDK can be installed in several ways: 
  * If you know your way around Git, you can [clone the Balsa.SDK repository](https://github.com/FloatingOriginInteractive/Balsa.SDK) to get started.  
- * You can also use Balsa.SDK Github repository as a template to create your own copy in your own account. 
- * If you don't care about any of that and just want the SDK files, click the Download Zip button in the *Clone or Download* Menu in the main page, to download the whole thing as a zip file:
+ * Otherwise, click the Download Zip button in the *Clone or Download* Menu in the main page, to download the whole thing as a zip file:
  ![](img/downloadrepo.png)
 
 
