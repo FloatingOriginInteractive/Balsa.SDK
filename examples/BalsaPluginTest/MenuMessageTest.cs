@@ -19,7 +19,7 @@ namespace BalsaPluginTest
 				
 				, IconSprite.Info, BalsaColors.TrainingBlue,
 					new PopupDialogOption("Cool", proceed),
-					new PopupDialogOption("Open Github", openGitHub));
+					new PopupDialogOption("Open Github", openGitHub + proceed)); // don't forget to call proceed on these messages, otherwise the game can get stuck!
 		}
 
 		private void openGitHub()
