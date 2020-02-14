@@ -8,6 +8,7 @@ Content generated in-game is uploaded by the game itself, using its internal ste
 
 Addon mods, however, need their own tool to be uploaded. This is done using the Balsaworks Uploader.
 
+![](img/uploadertoolready.png)
 
 
 ## Using the Uploader
