@@ -28,9 +28,9 @@ The uploader can also be run by commandline scripts, using the `--folderpath` ar
 
 ```uploader.exe --folderPath "path/to/my/mod" ```
 
-Doing so will start the uploader in CLI mode, which skips any steps where manual input is required (except in case of a first-time publish, see below). In CLI mode, the program will not pause until it ends. 
+Doing so will start the uploader in CLI mode, which skips any steps where manual input is required (except in case of a first-time publish, see below). 
 
-In CLI mode, all output is sent to stdout, and the program will return non zero values if it fails for any reason (it returns zero if it finishes successfully). You can use this to integrate the uploader into an automation job.
+In CLI mode, the program will not pause. All output is sent to stdout, and the program will return non zero values if it fails for any reason (it returns zero if it finishes successfully). You can use this to integrate the uploader into an automation job.
 
 
 ## Uploading for the first time
@@ -41,7 +41,7 @@ The uploader will look for a file called `modexport.cfg` in the mod folder. This
 
 If the modexport file is not found, the uploader will create a default one. It will then prompt you to edit it, and fill out the needed information. 
 
-Run the uploader too again afterwards to continue the upload process.
+Run the uploader tool again afterwards to continue the upload process.
 
 
 
@@ -53,9 +53,9 @@ If the data is ok, it will then contact Steam's workshop server and begin the up
 
 Once uploading completes, Steam returns an ID number that is unique to your mod submission. 
 
-The uploader then writes that value back on to the modexport.cfg file. Do not change the ID manually, as that will disconnect your mod from the published item in the workshop.
+The uploader then writes that value back on to the modexport.cfg file. Do not change the ID manually, as that will disconnect your mod from the published item.
 
-If you delete the modexport.cfg file, the uploader will treat it as a first-time upload the next time it runs. 
+Similarly, if you delete the modexport.cfg file, the uploader will treat it as a first-time upload the next time it runs. 
 
 
 ## After Uploading
