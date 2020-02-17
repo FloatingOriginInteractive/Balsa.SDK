@@ -113,7 +113,7 @@ Balsa addon mods rely on Unity's Assetbundle system, which allows Unity games to
 
 #### Exported Script Data for Parts
 
-Note that one thing the exported addon files _do not_ contain is any code. The scripts that are attached to your exported part game objects are only exported in the assetbundle and cfg files as _data_. This data is then used to attach and initialize the scripts when the game loads the object. This is a crucial feature of the addons pipeline for Balsa, as the scripts the game attaches to your part are actually different from the ones the addon source project used. (See more about [creating PartModules and PartModule configurators here](partModuleConfigurators.md))
+Note that one thing the exported addon files _do not_ contain is any code. The scripts that are attached to your exported part game objects are only exported in the assetbundle and cfg files as _data_. This data is then used to attach and initialize the scripts when the game loads the object. This is a crucial feature of the addons pipeline for Balsa, as the scripts the game attaches to your parts can actually be different from the ones the addon source project used. (See more about [creating PartModules and PartModule configurators here](partModuleConfigurators.md))
 
 Part component scripts (the ones attached to the root object of your part prefab), are actually not exported at all in the assetbundle. These initialize completely from the cfg file data, so the exported part assets don't carry any data for those scripts.
 
