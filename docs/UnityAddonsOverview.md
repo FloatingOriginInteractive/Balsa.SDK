@@ -111,7 +111,7 @@ Balsa addon mods rely on Unity's Assetbundle system, which allows Unity games to
 .cfg file: The cfg file should be familiar to you if you have any experience making mods for KSP. This file contains configuration data for exported parts, including data for modules and other components.  
 (Note that cfg files are only created for parts. Maps will only produce .fob and .manifest files.)
 
-#### Exported Script Data
+#### Exported Script Data for Parts
 
 Note that one thing the exported addon files _do not_ contain is any code. The scripts that are attached to your exported part game objects are only exported in the assetbundle and cfg files as _data_. This data is then used to attach and initialize the scripts when the game loads the object. This is a crucial feature of the addons pipeline for Balsa, as the scripts the game attaches to your part are actually different from the ones the addon source project used. (See more about [creating PartModules and PartModule configurators here](partModuleConfigurators.md))
 
@@ -120,6 +120,8 @@ Part component scripts (the ones attached to the root object of your part prefab
 Other components (attached to child objects of your part hierarchy, such as attachnodes, octree volumes, resource ports, fx system controllers, etc), _do_ have their data serialized in the assetbundle. Those scripts are included in the Balsa.Core assembly, which the main game also has access to, so in both projects, these components are exactly the same.
 
 
+#### Exported Script Data for Scenery
+For scenery addons, any attached scripts on your scene objects are included in the output assetbundle again only as the data needed to recreate them in game. So as long as the behaviour scripts also exist on the game side (ie, are either present in Balsa.Core, or are a Unity component, or are part of a plugin assembly the game is loading), the behaviour should load and initialize in the game. This allows sceneries to define functional elements, such as teleportation triggers, map boundaries, etc.  
 
 --------
 
