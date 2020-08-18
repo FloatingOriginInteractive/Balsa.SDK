@@ -51,7 +51,7 @@ Addon mods such as new parts or maps are made in Unity itself. For these, the SD
 Plugin Mods are code mods, and those are created in Visual Studio. Check out the [Visual Studio Setup Guide](vsProjectSetup.md) to get started with a Plugin project.
 
 #### Localizations
-New Localization files can also be added as mod content. These are slightly different from other mod types, in that they don't require a modcfg entry. The game will load any .loc file located inside the Balsa/Addons folder system. .loc files are really just CSV (comma-separated values) text files, containing a table of terms and their translations to different languages. 
+New Localization files can also be added as mod content. These are slightly different from other mod types, in that they don't require a modcfg entry. The game will load any .csv file located inside the Balsa/Addons folder system. .csv files are really just (comma-separated value) text files, containing a table of terms and their translations to different languages. 
 
 Have a look at [Creating Translations](creatingtranslations.md) to learn more about how to add new language content to the game.
 
