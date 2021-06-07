@@ -7,10 +7,19 @@ using UnityEngine;
 
 namespace FMODUnity
 {
+    public enum ParameterType
+    {
+        Continuous,
+        Discrete,
+        Labeled,
+    }
+
     public class EditorParamRef : ScriptableObject
     {
         [SerializeField]
         public string Name;
+        [SerializeField]
+        public string StudioPath;
         [SerializeField]
         public float Min;
         [SerializeField]
@@ -19,6 +28,12 @@ namespace FMODUnity
         public float Default;
         [SerializeField]
         public ParameterID ID;
+        [SerializeField]
+        public ParameterType Type;
+        [SerializeField]
+        public bool IsGlobal;
+        [SerializeField]
+        public string[] Labels = { };
 
         [Serializable]
         public struct ParameterID

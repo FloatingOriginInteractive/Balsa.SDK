@@ -34,20 +34,12 @@ namespace FMODUnity
 
             if (!levelScope)
             {
-                #if UNITY_2018_3_OR_NEWER
                 emitters.RemoveAll(x => PrefabUtility.GetPrefabAssetType(x) == PrefabAssetType.NotAPrefab);
-                #else
-                emitters.RemoveAll(x => PrefabUtility.GetPrefabType(x) != PrefabType.Prefab);
-                #endif
             }
 
             if (!prefabScope)
             {
-                #if UNITY_2018_3_OR_NEWER
                 emitters.RemoveAll(x => PrefabUtility.GetPrefabAssetType(x) == PrefabAssetType.NotAPrefab);
-                #else
-                emitters.RemoveAll(x => PrefabUtility.GetPrefabType(x) != PrefabType.Prefab);
-                #endif
             }
         }
 
@@ -142,7 +134,7 @@ namespace FMODUnity
         {
             for (int i = lastMatch + 1; i < emitters.Count; i++)
             {
-                if (emitters[i].Event.IndexOf(findText, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                if (emitters[i].EventReference.Path.IndexOf(findText, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                 {
                     lastMatch = i;
                     EditorGUIUtility.PingObject(emitters[i]);

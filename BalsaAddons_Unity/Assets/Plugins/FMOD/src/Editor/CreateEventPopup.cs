@@ -335,8 +335,13 @@ namespace FMODUnity
                 EditorUtils.GetScriptOutput(String.Format("studio.project.lookup(\"{0}\").relationships.banks.add(studio.project.lookup(\"{1}\"));", eventGuid, banks[selectedBank].guid));
                 EditorUtils.GetScriptOutput("studio.project.build();");
 
+                if (!eventFolder.EndsWith("/"))
+                {
+                    eventFolder += "/";
+                }
+
                 string fullPath = "event:" + eventFolder + eventName;
-                outputProperty.stringValue = fullPath;
+                outputProperty.SetEventReference(FMOD.GUID.Parse(eventGuid), fullPath);
                 EditorUtils.UpdateParamsOnEmitter(outputProperty.serializedObject, fullPath);
                 outputProperty.serializedObject.ApplyModifiedProperties();
             }

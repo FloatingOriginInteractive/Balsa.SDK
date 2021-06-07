@@ -35,20 +35,33 @@ namespace FMODUnity
         }
 
         public override string DisplayName { get { return "macOS"; } }
-        public override void DeclareUnityMappings(Settings settings)
+        public override void DeclareRuntimePlatforms(Settings settings)
         {
             settings.DeclareRuntimePlatform(RuntimePlatform.OSXPlayer, this);
-#if UNITY_EDITOR
-            settings.DeclareBuildTarget(BuildTarget.StandaloneOSX, this);
-#endif
         }
 
 #if UNITY_EDITOR
+        public override IEnumerable<BuildTarget> GetBuildTargets()
+        {
+            yield return BuildTarget.StandaloneOSX;
+        }
+
         public override Legacy.Platform LegacyIdentifier { get { return Legacy.Platform.Mac; } }
 
-        protected override IEnumerable<string> GetRelativeBinaryPaths(BuildTarget buildTarget, bool allVariants, string suffix)
+        protected override BinaryAssetFolderInfo GetBinaryAssetFolder(BuildTarget buildTarget)
         {
-            yield return string.Format("mac/fmodstudio{0}.bundle", suffix);
+            return new BinaryAssetFolderInfo("mac", "Plugins");
+        }
+
+        protected override IEnumerable<FileRecord> GetBinaryFiles(BuildTarget buildTarget, bool allVariants, string suffix)
+        {
+            yield return new FileRecord(string.Format("fmodstudio{0}.bundle", suffix));
+        }
+
+        protected override IEnumerable<FileRecord> GetOptionalBinaryFiles(BuildTarget buildTarget, bool allVariants)
+        {
+            yield return new FileRecord("gvraudio.bundle");
+            yield return new FileRecord("resonanceaudio.bundle");
         }
 
         public override bool SupportsAdditionalCPP(BuildTarget target)
