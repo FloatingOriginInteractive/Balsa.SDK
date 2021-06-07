@@ -1,7 +1,12 @@
 {
     "name": "FMODUnityEditor",
     "references": [
-        "FMODUnity"
+        "FMODUnity",
+        "Unity.Timeline.Editor",
+        "Unity.Timeline",
+        "Unity.VisualScripting.Core",
+        "Unity.VisualScripting.Core.Editor",
+        "Unity.VisualScripting.Flow.Editor"
     ],
     "includePlatforms": [
         "Editor"
@@ -22,6 +27,11 @@
             "name": "com.unity.addressables",
             "expression": "1.0.0",
             "define": "UNITY_ADDRESSABLES_EXIST"
+        },
+        {
+            "name": "com.unity.visualscripting",
+            "expression": "1.0.0",
+            "define": "UNITY_VISUALSCRIPTING_EXIST"
         }
     ],
     "noEngineReferences": false

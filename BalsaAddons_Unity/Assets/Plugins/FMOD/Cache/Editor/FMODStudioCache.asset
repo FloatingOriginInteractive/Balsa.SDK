@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8853651652428059626
+--- !u!114 &-7326684985908444825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,18 +9,229 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/prop_mid/RPM
+  m_EditorClassIdentifier: 
+  Name: RPM
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-7269727188590626043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/motor_electric_small
+  m_EditorClassIdentifier: 
+  Path: event:/motor_electric_small
+  Guid:
+    Data1: 331014725
+    Data2: 1301159331
+    Data3: -709112176
+    Data4: -982756694
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 8648682986154211303}
+  - {fileID: 3101130641232731594}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-6533347743056884366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/motor_electric_mid
+  m_EditorClassIdentifier: 
+  Path: event:/motor_electric_mid
+  Guid:
+    Data1: 1702269046
+    Data2: 1180773966
+    Data3: -527418209
+    Data4: 87983012
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 353898188737104716}
+  - {fileID: -261790784393383784}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-4730713539121796897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/gunpod_mg
+  m_EditorClassIdentifier: 
+  Path: event:/gunpod_mg
+  Guid:
+    Data1: 25287961
+    Data2: 1210909570
+    Data3: 741995658
+    Data4: 243808745
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 5000
+--- !u!114 &-4167487851671360216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/main.bank
+  m_EditorClassIdentifier: 
+  Path: D:/SteamGames/steamapps/common/BALSA Model Flight Simulator/balsa_Data/StreamingAssets/main.bank
+  Name: main
+  StudioPath: bank:/main
+  lastModified: 637563215923154620
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 4588128
+  Exists: 1
+--- !u!114 &-3312912933984232528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/prop_small/load
+  m_EditorClassIdentifier: 
+  Name: load
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2764651972158536467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/motor_nitro/RPM
+  m_EditorClassIdentifier: 
+  Name: RPM
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2631452895213970579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/motor_nitro
+  m_EditorClassIdentifier: 
+  Path: event:/motor_nitro
+  Guid:
+    Data1: 1149846131
+    Data2: 1305333952
+    Data3: -1464580982
+    Data4: 1207729396
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2764651972158536467}
+  - {fileID: 6378498573571525235}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-2126549643485971066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/airstream/airspeed
   m_EditorClassIdentifier: 
   Name: airspeed
+  StudioPath: 
   Min: 0
   Max: 500
   Default: 0
   ID:
     data1: 0
     data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &-8266738448317785821
+--- !u!114 &-1557570351595626496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29,46 +240,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/gunpod_thud
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/prop_small
   m_EditorClassIdentifier: 
-  Path: event:/gunpod_thud
-  guid: 1553fd4472ee64439392b75458669eab
+  Path: event:/prop_small
+  Guid:
+    Data1: -1854848102
+    Data2: 1117236690
+    Data3: 787897248
+    Data4: 1768243748
   Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 549
---- !u!114 &-8010219544768666974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/prop_mid
-  m_EditorClassIdentifier: 
-  Path: event:/prop_mid
-  guid: 5865018119701942ae99d0aee587f2bc
-  Banks:
-  - {fileID: 4430308203873376759}
+  - {fileID: 3978251050059498964}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: -596097366470829926}
-  - {fileID: 6619369319878930735}
-  MinDistance: 0.29999998
-  MaxDistance: 650
+  - {fileID: -3312912933984232528}
+  - {fileID: 6624316680875586400}
+  MinDistance: 0
+  MaxDistance: 0
   Length: 0
---- !u!114 &-7513839902995743651
+--- !u!114 &-878341392317069950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,130 +269,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/motor_electric_small/RPM
-  m_EditorClassIdentifier: 
-  Name: RPM
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-7149631985776046228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/phys_splash
-  m_EditorClassIdentifier: 
-  Path: event:/phys_splash
-  guid: 41bc14bd2905b541aea91cb68eaa0dab
-  Banks:
-  - {fileID: 225446545016249288}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -6730630359668556486}
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 0
---- !u!114 &-6787781220747783736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/motor_electric_small
-  m_EditorClassIdentifier: 
-  Path: event:/motor_electric_small
-  guid: 45e2ba13a31d8e4d90cebbd5aa526cc5
-  Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -7513839902995743651}
-  - {fileID: 8026468969414819623}
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 0
---- !u!114 &-6730630359668556486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/phys_splash/magnitude
-  m_EditorClassIdentifier: 
-  Name: magnitude
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-5960164199023202435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/prop_small/RPM
-  m_EditorClassIdentifier: 
-  Name: RPM
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-5932641603699592412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
   m_Name: event:/waypoint_fwoosh
   m_EditorClassIdentifier: 
   Path: event:/waypoint_fwoosh
-  guid: 43ac95c7fff5c740b8eae59a4ea6b316
+  Guid:
+    Data1: -946492349
+    Data2: 1086846463
+    Data3: -1696208200
+    Data4: 380872270
   Banks:
-  - {fileID: 225446545016249288}
+  - {fileID: -4167487851671360216}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
-  MinDistance: 0.29999998
-  MaxDistance: 650
+  MinDistance: 0
+  MaxDistance: 0
   Length: 2094
---- !u!114 &-4522315075381105777
+--- !u!114 &-261790784393383784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,84 +296,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/motor_nitro/RPM
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/motor_electric_mid/load
   m_EditorClassIdentifier: 
-  Name: RPM
+  Name: load
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 0
     data2: 0
-  Exists: 1
---- !u!114 &-3361834088532916530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/motor_nitro
-  m_EditorClassIdentifier: 
-  Path: event:/motor_nitro
-  guid: 73428944c0d0cd4d8a44b4a8f47cfc47
-  Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -4522315075381105777}
-  - {fileID: 2317212495712050606}
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 0
---- !u!114 &-979409987115562467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/gunpod_mg
-  m_EditorClassIdentifier: 
-  Path: event:/gunpod_mg
-  guid: 19dd810182032d488af4392ce939880e
-  Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 5000
---- !u!114 &-596097366470829926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/prop_mid/RPM
-  m_EditorClassIdentifier: 
-  Name: RPM
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -297,34 +320,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8406e732ef55b48a6a209026f2c99a, type: 3}
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 8623386492027549551}
-  - {fileID: 4430308203873376759}
-  - {fileID: 225446545016249288}
+  - {fileID: 6853817453038198595}
+  - {fileID: 3978251050059498964}
+  - {fileID: -4167487851671360216}
   EditorEvents:
-  - {fileID: -8266738448317785821}
-  - {fileID: -979409987115562467}
-  - {fileID: -6787781220747783736}
-  - {fileID: -8010219544768666974}
-  - {fileID: -3361834088532916530}
-  - {fileID: 4511821422586357225}
-  - {fileID: 1809961735512877817}
-  - {fileID: 2998835814231108449}
-  - {fileID: 5154202194438806583}
-  - {fileID: -7149631985776046228}
-  - {fileID: -5932641603699592412}
-  - {fileID: 294888771469129932}
+  - {fileID: 6739964374202479865}
+  - {fileID: -4730713539121796897}
+  - {fileID: -7269727188590626043}
+  - {fileID: 4732423970487917688}
+  - {fileID: -2631452895213970579}
+  - {fileID: -6533347743056884366}
+  - {fileID: -1557570351595626496}
+  - {fileID: 8051605316824375363}
+  - {fileID: 4355369398810776226}
+  - {fileID: 6372510807653709356}
+  - {fileID: -878341392317069950}
+  - {fileID: 6408322771028514057}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 4430308203873376759}
+  - {fileID: 3978251050059498964}
   StringsBanks:
-  - {fileID: 8623386492027549551}
-  stringsBankWriteTime: 637424462537427849
-  cacheVersion: 6
---- !u!114 &225446545016249288
+  - {fileID: 6853817453038198595}
+  stringsBankWriteTime: 637563216052795612
+  cacheVersion: 9
+--- !u!114 &353898188737104716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -333,60 +356,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aabfcc5f6191b0045835df9a5554ad09, type: 3}
-  m_Name: bank:/main.bank
-  m_EditorClassIdentifier: 
-  Path: ../../balsa/balsa_fmod/balsa.addons/Build/Desktop/main.bank
-  Name: main
-  StudioPath: bank:/main
-  lastModified: 637424462537806830
-  LoadResult: 0
-  FileSizes: []
-  Exists: 1
---- !u!114 &294888771469129932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/paintball_impact
-  m_EditorClassIdentifier: 
-  Path: event:/paintball_impact
-  guid: e5483bd1cb50214b8a098265190d855d
-  Banks:
-  - {fileID: 225446545016249288}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 1724
---- !u!114 &1456296415950720709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/motor_electric_mid/RPM
   m_EditorClassIdentifier: 
   Name: RPM
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 0
     data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &1809961735512877817
+--- !u!114 &2665550569420796635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,43 +380,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/prop_small
-  m_EditorClassIdentifier: 
-  Path: event:/prop_small
-  guid: 9a437191d2ad9742a05bf62e24426569
-  Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 3767745824925830220}
-  - {fileID: -5960164199023202435}
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 0
---- !u!114 &2317212495712050606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/motor_nitro/load
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/prop_mid/load
   m_EditorClassIdentifier: 
   Name: load
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 0
     data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &2998835814231108449
+--- !u!114 &3101130641232731594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,41 +404,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/rocket_e
-  m_EditorClassIdentifier: 
-  Path: event:/rocket_e
-  guid: d6dfdb37ec30a34f91c4dac39cf76d42
-  Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0.29999998
-  MaxDistance: 650
-  Length: 6200
---- !u!114 &3767745824925830220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/prop_small/load
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/motor_electric_small/load
   m_EditorClassIdentifier: 
   Name: load
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 0
     data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &4430308203873376759
+--- !u!114 &3183909593856894115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -483,17 +428,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aabfcc5f6191b0045835df9a5554ad09, type: 3}
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/phys_splash/magnitude
+  m_EditorClassIdentifier: 
+  Name: magnitude
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3978251050059498964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/addons.bank
   m_EditorClassIdentifier: 
-  Path: ../../balsa/balsa_fmod/balsa.addons/Build/Desktop/addons.bank
+  Path: D:/SteamGames/steamapps/common/BALSA Model Flight Simulator/balsa_Data/StreamingAssets/addons.bank
   Name: addons
   StudioPath: bank:/addons
-  lastModified: 637424462537378009
+  lastModified: 637563215923144650
   LoadResult: 0
-  FileSizes: []
+  FileSizes:
+  - Name: 
+    Value: 1188960
   Exists: 1
---- !u!114 &4511821422586357225
+--- !u!114 &4355369398810776226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -502,67 +473,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
-  m_Name: event:/motor_electric_mid
-  m_EditorClassIdentifier: 
-  Path: event:/motor_electric_mid
-  guid: 769076654e2e61469f3c90e0a4833e05
-  Banks:
-  - {fileID: 4430308203873376759}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 1456296415950720709}
-  - {fileID: 5000873617655174769}
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &5000873617655174769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/motor_electric_mid/load
-  m_EditorClassIdentifier: 
-  Name: load
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &5154202194438806583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f4a2ce026391a4e898f4dea2b997b7, type: 3}
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
   m_Name: event:/airstream
   m_EditorClassIdentifier: 
   Path: event:/airstream
-  guid: 35e3589d3c531848892fe9c65d0c4719
+  Guid:
+    Data1: -1655119051
+    Data2: 1209553724
+    Data3: -957796471
+    Data4: 424086621
   Banks:
-  - {fileID: 225446545016249288}
+  - {fileID: -4167487851671360216}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -8853651652428059626}
+  - {fileID: -2126549643485971066}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
---- !u!114 &6619369319878930735
+--- !u!114 &4732423970487917688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -571,18 +501,79 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/prop_mid/load
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/prop_mid
+  m_EditorClassIdentifier: 
+  Path: event:/prop_mid
+  Guid:
+    Data1: -2130614952
+    Data2: 1108963353
+    Data3: -1362060882
+    Data4: -1124956187
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -7326684985908444825}
+  - {fileID: 2665550569420796635}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &6372510807653709356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/phys_splash
+  m_EditorClassIdentifier: 
+  Path: event:/phys_splash
+  Guid:
+    Data1: -1122714559
+    Data2: 1102382377
+    Data3: -1239635538
+    Data4: -1425167730
+  Banks:
+  - {fileID: -4167487851671360216}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3183909593856894115}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &6378498573571525235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/motor_nitro/load
   m_EditorClassIdentifier: 
   Name: load
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 0
     data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &8026468969414819623
+--- !u!114 &6408322771028514057
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,18 +582,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb8a4dc52fc7940add920f985801e3, type: 3}
-  m_Name: parameter:/motor_electric_small/load
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/paintball_impact
   m_EditorClassIdentifier: 
-  Name: load
+  Path: event:/paintball_impact
+  Guid:
+    Data1: -784643867
+    Data2: 1260474571
+    Data3: 1703020938
+    Data4: 1569000729
+  Banks:
+  - {fileID: -4167487851671360216}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1724
+--- !u!114 &6624316680875586400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/prop_small/RPM
+  m_EditorClassIdentifier: 
+  Name: RPM
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 0
     data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &8623386492027549551
+--- !u!114 &6739964374202479865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -611,15 +633,93 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aabfcc5f6191b0045835df9a5554ad09, type: 3}
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/gunpod_thud
+  m_EditorClassIdentifier: 
+  Path: event:/gunpod_thud
+  Guid:
+    Data1: 1157452565
+    Data2: 1130688114
+    Data3: 1421316755
+    Data4: -1415682472
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 549
+--- !u!114 &6853817453038198595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/addons.strings.bank
   m_EditorClassIdentifier: 
-  Path: ../../balsa/balsa_fmod/balsa.addons/Build/Desktop/addons.strings.bank
+  Path: D:/SteamGames/steamapps/common/BALSA Model Flight Simulator/balsa_Data/StreamingAssets/addons.strings.bank
   Name: addons.strings
   StudioPath: bank:/addons.strings
-  lastModified: 637424462537427849
+  lastModified: 637563216052795612
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 1580
+    Value: 1592
+  Exists: 1
+--- !u!114 &8051605316824375363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/rocket_e
+  m_EditorClassIdentifier: 
+  Path: event:/rocket_e
+  Guid:
+    Data1: 937156566
+    Data2: 1336094956
+    Data3: -1009073007
+    Data4: 1114503068
+  Banks:
+  - {fileID: 3978251050059498964}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 6200
+--- !u!114 &8648682986154211303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/motor_electric_small/RPM
+  m_EditorClassIdentifier: 
+  Name: RPM
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1

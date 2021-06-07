@@ -36,27 +36,53 @@ namespace FMODUnity
         }
 
         public override string DisplayName { get { return "Android"; } }
-        public override void DeclareUnityMappings(Settings settings)
+        public override void DeclareRuntimePlatforms(Settings settings)
         {
             settings.DeclareRuntimePlatform(RuntimePlatform.Android, this);
-
-#if UNITY_EDITOR
-            settings.DeclareBuildTarget(BuildTarget.Android, this);
-#endif
         }
 
 #if UNITY_EDITOR
+        public override IEnumerable<BuildTarget> GetBuildTargets()
+        {
+            yield return BuildTarget.Android;
+        }
+
         public override Legacy.Platform LegacyIdentifier { get { return Legacy.Platform.Android; } }
 
-        protected override IEnumerable<string> GetRelativeBinaryPaths(BuildTarget buildTarget, bool allVariants, string suffix)
+        protected override BinaryAssetFolderInfo GetBinaryAssetFolder(BuildTarget buildTarget)
         {
-            yield return "android/fmod.jar";
+            return new BinaryAssetFolderInfo("android", "Plugins/Android/libs");
+        }
 
-            foreach (string architecture in new[] { "arm64-v8a", "armeabi-v7a", "x86" })
+        private static readonly string[] Architectures = { "arm64-v8a", "armeabi-v7a", "x86" };
+
+        protected override IEnumerable<FileRecord> GetBinaryFiles(BuildTarget buildTarget, bool allVariants, string suffix)
+        {
+            yield return new FileRecord("fmod.jar")
+                .WithAbsoluteVersion(FileLayout.Release_1_10, "Plugins/Android/fmod.jar");
+
+            foreach (string architecture in Architectures)
             {
-                yield return string.Format("android/{0}/libfmod{1}.so", architecture, suffix);
-                yield return string.Format("android/{0}/libfmodstudio{1}.so", architecture, suffix);
+                yield return new FileRecord(string.Format("{0}/libfmod{1}.so", architecture, suffix));
+                yield return new FileRecord(string.Format("{0}/libfmodstudio{1}.so", architecture, suffix));
             }
+        }
+
+        protected override IEnumerable<FileRecord> GetOptionalBinaryFiles(BuildTarget buildTarget, bool allVariants)
+        {
+            foreach (string architecture in Architectures)
+            {
+                yield return new FileRecord(string.Format("{0}/libgvraudio.so", architecture));
+                yield return new FileRecord(string.Format("{0}/libresonanceaudio.so", architecture));
+            }
+        }
+
+        public override bool SupportsAdditionalCPP(BuildTarget target)
+        {
+            // Unity parses --additional-cpp arguments specified via
+            // PlayerSettings.SetAdditionalIl2CppArgs() incorrectly when the Android
+            // Export Project option is set.
+            return false;
         }
 #endif
 

@@ -36,28 +36,34 @@ namespace FMODUnity
         }
 
         public override string DisplayName { get { return "Apple TV"; } }
-        public override void DeclareUnityMappings(Settings settings)
+        public override void DeclareRuntimePlatforms(Settings settings)
         {
             settings.DeclareRuntimePlatform(RuntimePlatform.tvOS, this);
-
-#if UNITY_EDITOR
-            settings.DeclareBuildTarget(BuildTarget.tvOS, this);
-#endif
         }
 
 #if UNITY_EDITOR
+        public override IEnumerable<BuildTarget> GetBuildTargets()
+        {
+            yield return BuildTarget.tvOS;
+        }
+
         public override Legacy.Platform LegacyIdentifier { get { return Legacy.Platform.AppleTV; } }
 
-        protected override IEnumerable<string> GetRelativeBinaryPaths(BuildTarget buildTarget, bool allVariants, string suffix)
+        protected override BinaryAssetFolderInfo GetBinaryAssetFolder(BuildTarget buildTarget)
+        {
+            return new BinaryAssetFolderInfo("tvos", "Plugins/tvOS");
+        }
+
+        protected override IEnumerable<FileRecord> GetBinaryFiles(BuildTarget buildTarget, bool allVariants, string suffix)
         {
             if (allVariants || PlayerSettings.tvOS.sdkVersion == tvOSSdkVersion.Device)
             {
-                yield return string.Format("tvos/libfmodstudiounityplugin{0}.a", suffix);
+                yield return new FileRecord(string.Format("libfmodstudiounityplugin{0}.a", suffix));
             }
 
             if (allVariants || PlayerSettings.tvOS.sdkVersion == tvOSSdkVersion.Simulator)
             {
-                yield return string.Format("tvos/libfmodstudiounitypluginsimulator{0}.a", suffix);
+                yield return new FileRecord(string.Format("libfmodstudiounitypluginsimulator{0}.a", suffix));
             }
         }
 

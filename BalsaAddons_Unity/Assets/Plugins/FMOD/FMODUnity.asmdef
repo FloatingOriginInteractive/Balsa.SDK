@@ -22,6 +22,16 @@
             "name": "com.unity.addressables",
             "expression": "1.0.0",
             "define": "UNITY_ADDRESSABLES_EXIST"
+        },
+        {
+            "name": "com.unity.modules.physics",
+            "expression": "1.0.0",
+            "define": "UNITY_PHYSICS_EXIST"
+        },
+        {
+            "name": "com.unity.modules.physics2d",
+            "expression": "1.0.0",
+            "define": "UNITY_PHYSICS2D_EXIST"
         }
     ],
     "noEngineReferences": false

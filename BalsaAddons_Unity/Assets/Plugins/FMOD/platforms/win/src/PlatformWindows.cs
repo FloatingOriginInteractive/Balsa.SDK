@@ -41,21 +41,22 @@ namespace FMODUnity
         }
 
         public override string DisplayName { get { return "Windows"; } }
-        public override void DeclareUnityMappings(Settings settings)
+        public override void DeclareRuntimePlatforms(Settings settings)
         {
             settings.DeclareRuntimePlatform(RuntimePlatform.WindowsPlayer, this);
             settings.DeclareRuntimePlatform(RuntimePlatform.WSAPlayerX86, this);
             settings.DeclareRuntimePlatform(RuntimePlatform.WSAPlayerX64, this);
             settings.DeclareRuntimePlatform(RuntimePlatform.WSAPlayerARM, this);
-
-#if UNITY_EDITOR
-            settings.DeclareBuildTarget(BuildTarget.StandaloneWindows, this);
-            settings.DeclareBuildTarget(BuildTarget.StandaloneWindows64, this);
-            settings.DeclareBuildTarget(BuildTarget.WSAPlayer, this);
-#endif
         }
 
 #if UNITY_EDITOR
+        public override IEnumerable<BuildTarget> GetBuildTargets()
+        {
+            yield return BuildTarget.StandaloneWindows;
+            yield return BuildTarget.StandaloneWindows64;
+            yield return BuildTarget.WSAPlayer;
+        }
+
         public override Legacy.Platform LegacyIdentifier { get { return Legacy.Platform.Windows; } }
 #endif
 
@@ -67,25 +68,58 @@ namespace FMODUnity
 #endif
 
 #if UNITY_EDITOR
-        protected override IEnumerable<string> GetRelativeBinaryPaths(BuildTarget buildTarget, bool allVariants, string suffix)
+        protected override BinaryAssetFolderInfo GetBinaryAssetFolder(BuildTarget buildTarget)
+        {
+            switch (buildTarget)
+            {
+                case BuildTarget.StandaloneWindows:
+                case BuildTarget.StandaloneWindows64:
+                    return new BinaryAssetFolderInfo("win", "Plugins");
+                case BuildTarget.WSAPlayer:
+                    return new BinaryAssetFolderInfo("uwp", "Plugins/UWP");
+                default:
+                    throw new System.ArgumentException("Unrecognised build target: " + buildTarget);
+            }
+        }
+
+        protected override IEnumerable<FileRecord> GetBinaryFiles(BuildTarget buildTarget, bool allVariants, string suffix)
         {
             string dllSuffix = suffix + ".dll";
 
             switch (buildTarget)
             {
                 case BuildTarget.StandaloneWindows:
-                    yield return "win/x86/fmodstudio" + dllSuffix;
+                    yield return new FileRecord("x86/fmodstudio" + dllSuffix);
                     break;
                 case BuildTarget.StandaloneWindows64:
-                    yield return "win/x86_64/fmodstudio" + dllSuffix;
+                    yield return new FileRecord("x86_64/fmodstudio" + dllSuffix);
                     break;
                 case BuildTarget.WSAPlayer:
                     foreach (string architecture in new[] { "arm", "x64", "x86" })
                     {
-                        yield return string.Format("uwp/{0}/fmod{1}", architecture, dllSuffix);
-                        yield return string.Format("uwp/{0}/fmodstudio{1}", architecture, dllSuffix);
+                        yield return new FileRecord(string.Format("{0}/fmod{1}", architecture, dllSuffix));
+                        yield return new FileRecord(string.Format("{0}/fmodstudio{1}", architecture, dllSuffix));
                     }
                     break;
+                default:
+                    throw new System.NotSupportedException("Unrecognised Build Target");
+            }
+        }
+
+        protected override IEnumerable<FileRecord> GetOptionalBinaryFiles(BuildTarget buildTarget, bool allVariants)
+        {
+            switch (buildTarget)
+            {
+                case BuildTarget.StandaloneWindows:
+                    yield return new FileRecord("x86/gvraudio.dll");
+                    yield return new FileRecord("x86/resonanceaudio.dll");
+                    break;
+                case BuildTarget.StandaloneWindows64:
+                    yield return new FileRecord("x86_64/gvraudio.dll");
+                    yield return new FileRecord("x86_64/resonanceaudio.dll");
+                    break;
+                case BuildTarget.WSAPlayer:
+                    yield break;
                 default:
                     throw new System.NotSupportedException("Unrecognised Build Target");
             }
@@ -100,15 +134,11 @@ namespace FMODUnity
         public override string GetPluginPath(string pluginName)
         {
 #if UNITY_STANDALONE_WIN
-    #if UNITY_2019_1_OR_NEWER
         #if UNITY_64
             return string.Format("{0}/X86_64/{1}.dll", GetPluginBasePath(), pluginName);
         #else
             return string.Format("{0}/X86/{1}.dll", GetPluginBasePath(), pluginName);
         #endif
-    #else
-            return string.Format("{0}/{1}.dll", GetPluginBasePath(), pluginName);
-    #endif
 #else // UNITY_WSA
             return string.Format("{0}.dll", pluginName);
 #endif
