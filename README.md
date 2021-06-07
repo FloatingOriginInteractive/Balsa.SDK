@@ -6,7 +6,7 @@ The official SDK for creating Balsa addons.
 -----
 
 ### Quickstart
-You can clone/download this repo to get the SDK package. You'll also likely need Unity 2018.4 and/or Visual Studio 2019.
+You can clone/download this repo to get the SDK package. You'll also likely need Unity 2019.4.25 and/or Visual Studio 2019.
 
 ### Documentation
 [Check out the official online documentation here.](https://floatingorigininteractive.github.io/Balsa.SDK)  
