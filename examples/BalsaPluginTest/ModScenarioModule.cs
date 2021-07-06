@@ -1,14 +1,19 @@
 ﻿using CfgFields;
+
 using Scenarios;
 using Scenarios.Data;
+
 using System;
 using System.Collections.Generic;
-using UI.ModularContextMenu.Data;
+
+using UI.MMX.Data;
+
+
 using UnityEngine.Networking;
 
 namespace BalsaPlugin
 {
-	
+
 	/*  You can also create new Scenario Modules in Plugins. 
 	 *  This is an example implementation of a basic scenario module.
 	 */
@@ -16,7 +21,7 @@ namespace BalsaPlugin
 	[ScenarioModule(listName = "My Scenario Module")]
 	public class ModScenarioModule : Scenarios.ScenarioModule
 	{
-		
+
 
 		// --------- Overview of Scenario Module architecture ------------
 		//
@@ -37,12 +42,12 @@ namespace BalsaPlugin
 		// just remember Data types must always inherit from ScenarioModuleData
 
 
-		
+
 		public class Data : ScenarioModuleData
 		{
 			//### subclasses of ScenarioModuleData should contain all the data needed to initialize the behaviour.
 			// You can use CFGFields here to automatically mark data as persistent:
-			
+
 			// unlike with PartModules, the CfgContext value has no effect here (which is to say, all CfgFields save under the Config context when mission files are saved)
 
 			[CfgField]
@@ -70,7 +75,7 @@ namespace BalsaPlugin
 			/// ScnTriggerReferences store a link to triggers from other bits of mission data. These need to be marked with CfgField to make them persistent.
 			/// </summary>
 			[CfgField]
-			public ScnTriggerReference myInputTrigger = new ScnTriggerReference();
+			public ScnTriggerInput myInputTrigger = new ScnTriggerInput();
 
 			/// <summary>
 			/// ScnTriggers are trigger 'sources'. These are invoked from this module. These don't need to use CfgField, as they don't save any data themselves.
@@ -91,9 +96,9 @@ namespace BalsaPlugin
 
 
 			//### The Scenario Data class is also where you can define the controls that are presented in the Scenario Editor UI for this Module
-			public override void OnGetScenarioEditorData(ContentData content)
+			protected override void OnGetScenarioEditorData(ContentData content)
 			{
-				content.AddRange(new ItemData[]
+				content.AddRange(new MMXItemData[]
 				{
 					// you can add your own UI controls here to allow UI control over your module's values:
 					new Button()
@@ -119,8 +124,8 @@ namespace BalsaPlugin
 
 					// you can also control the layouting of your controls by using layout groups. 
 					new TableLayout(0.1f, 0.9f),
-												
-						new Label("This"),						
+
+						new Label("This"),
 						new Toggle()
 						{
 							caption = "Is a toggle button",
@@ -137,7 +142,7 @@ namespace BalsaPlugin
 					// just remember to close any layout groups you open with EndLayout
 					new EndLayout(),
 				});
-				
+
 
 				// the base method takes care of drawing the type's outgoing triggers. By convention, that should go at the bottom, so call it last.
 				base.OnGetScenarioEditorData(content);
@@ -150,7 +155,7 @@ namespace BalsaPlugin
 			{
 				// no need to call base here. 
 
-				exts.Add(new MissionExternalAsset(aPersistentObject.aPersistentString_CouldBeAFilePath, (str) => 
+				exts.Add(new MissionExternalAsset(aPersistentObject.aPersistentString_CouldBeAFilePath, (str) =>
 				{
 					// if the packing process for the mission does end up moving files around, just make sure to update your original value here.
 					aPersistentObject.aPersistentString_CouldBeAFilePath = str;
@@ -197,14 +202,14 @@ namespace BalsaPlugin
 			}
 		}
 
-		private void OnInputTrigger(bool isServer)
+		private void OnInputTrigger()
 		{
 			// trigger listener methods receive a parameter to let you know whether this instance is running on the server.
 			// this way you can have your module do --or not do-- things on remote clients.
 
 			// to make this module 'forward' the trigger event, let's just invoke our output trigger directly from here.
 			// it's good practive to always use ?. to access the Invoke method, because it may or may not be connected to anything on the other end.
-			data.myOutputTrigger?.Invoke(isServer);
+			data.myOutputTrigger?.Invoke();
 		}
 
 
@@ -215,7 +220,7 @@ namespace BalsaPlugin
 		}
 
 
-		
+
 		// remember that ScenarioModules are also based on MonoBehaviours, so your filename here needs to match the class name.
 	}
 

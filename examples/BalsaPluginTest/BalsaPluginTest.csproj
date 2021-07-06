@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BalsaPluginTest</RootNamespace>
     <AssemblyName>BalsaPluginTest</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -41,11 +41,17 @@
     <Reference Include="Balsa.Core">
       <HintPath>..\..\..\balsa\balsa\build\Balsa_Data\Managed\Balsa.Core.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
+      <HintPath>..\..\..\balsa\balsa\build\balsa_Data\Managed\com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Facepunch.Steamworks.Win64">
       <HintPath>..\..\..\balsa\balsa\build\Balsa_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
     </Reference>
     <Reference Include="FloatingUtil">
       <HintPath>..\..\..\balsa\balsa\build\Balsa_Data\Managed\FloatingUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="FloatingUtil.Networking">
+      <HintPath>..\..\..\balsa\balsa\build\balsa_Data\Managed\FloatingUtil.Networking.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,9 +66,6 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\balsa\balsa\build\Balsa_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>..\..\..\balsa\balsa\build\Balsa_Data\Managed\UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\balsa\balsa\build\Balsa_Data\Managed\UnityEngine.UI.dll</HintPath>
