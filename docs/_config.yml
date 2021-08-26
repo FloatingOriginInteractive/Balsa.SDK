@@ -77,13 +77,13 @@ defaults:
     scope:
       path: "" # an empty string here means all files in the project
     values:
-      layout: "git-wiki-layout"
+      layout: "git-wiki-default"
  -
     scope:
       path: ""
       type: "pages"
     values:
-      layout: "git-wiki-layout"
+      layout: "git-wiki-default"
  -
     scope:
       path: ""
