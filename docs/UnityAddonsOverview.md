@@ -11,7 +11,7 @@ It assumes also that you have already completed the steps in the [Getting Starte
 
 
 ## Download the right version of Unity.
-Balsa and the SDK tools currently require Unity version 2018.4.24. Unity is free for personal and hobby use.
+Balsa and the SDK tools currently require Unity version 2019.4.25f1 (LTS). Unity is free for personal and hobby use.
 
 You should make sure you are using the right version, to avoid potential issues. If you are unsure, look up your version in the Help/About Unity menu option:
 
@@ -22,7 +22,7 @@ The easiest way to install Unity is with the Unity Hub, [available here](https:/
 In the Hub application, you can select different versions to install in the Installs tab.
 ![](img/unityhubinstall.png)
 
-Alternatively, standalone installers for Unity are available here: https://unity3d.com/unity/whats-new/2018.4.24
+Alternatively, standalone installers for Unity are available here: https://unity3d.com/unity/whats-new/2019.4.25
 
 
 -------
