@@ -83,7 +83,7 @@ defaults:
       path: ""
       type: "pages"
     values:
-      layout: "git-wiki-default"
+      layout: "git-wiki-bs-lux"
  -
     scope:
       path: ""
