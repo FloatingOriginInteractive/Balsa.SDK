@@ -7,9 +7,11 @@ There are a number of cheat commands that can be used, which can be helpful whil
 ## Usage
 
 To enter cheats, simply type commands directly into the Chat input box (default `Return` key).
+
 Mind that Cheats are not available during multiplayer sessions.
 
-All cheat commands are preceded by a forward slash '/' character
+All cheat commands are preceded by a forward slash '/' character.
+
 Most cheats can also be turned off, by following the command with the word 'off' (eg, `/warhead off` disables unlimited ammo)
 
 
