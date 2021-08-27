@@ -3,6 +3,7 @@ Welcome to the Balsa Addons SDK documentation site. Here you can find informatio
 
 Keep in mind that just as the game, these pages are also a work in progress.
 
+
 ## Setting Up
 If you're just getting started, check out the [Getting Started](gettingstarted.md) guide.
 
