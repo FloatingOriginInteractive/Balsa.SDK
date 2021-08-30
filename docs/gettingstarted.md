@@ -27,9 +27,9 @@ The first step when starting any new Addon or Plugin mod is to create a mod fold
 ### .modcfg Files
 As well as a mod folder, all addon mods need to have a `.modcfg` file. This file is like an index into your mod content. 
 
-Modcfg files tell the game what content the mod contains, and where to find it. These files can also contain new definitions as well, for things like Part Resources, Career Missions, Parts List categories and filtering options, and so on.
+Modcfg files tell the game what content the mod contains, and where to find it. These files can also contain new definitions as well, for things like Part Resources, Parts List categories and filtering options, and so on.
 
-The modcfg file then is essentially a table of contents for your mod. If it isn't listed there, the game will not load it.  
+The modcfg file is essentially a table of contents for your mod. If it isn't listed there, the game will not load it.  
 
 Have a look at the modcfg files in the basegame folder for reference and examples. You can have multiple modcfg files for different things in your mod folder, or you can combine it all into one file. 
 
