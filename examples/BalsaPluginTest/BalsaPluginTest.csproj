@@ -16,12 +16,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -86,6 +87,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)$(OutDir)$(TargetFileName)" "$(SolutionDir)..\BalsaPluginTestModFolder\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(SolutionDir)$(OutDir)$(TargetFileName)" "$(SolutionDir)..\BalsaPluginTestModFolder\$(TargetFileName)"
+copy /Y "$(SolutionDir)$(OutDir)$(TargetName).pdb" "$(SolutionDir)..\BalsaPluginTestModFolder\$(TargetName).pdb"</PostBuildEvent>
   </PropertyGroup>
 </Project>
