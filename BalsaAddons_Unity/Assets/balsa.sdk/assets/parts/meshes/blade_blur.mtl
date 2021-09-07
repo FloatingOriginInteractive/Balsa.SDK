@@ -1,0 +1,5 @@
+newmtl propblur
+map_Kd -o 0 0 -s 1 1 C:/Users/ffala/Desktop/Floating Origin/balsa/balsa.addons/Assets/parts/aero commander/Textures/prop_triblade/propblur.png
+Kd 1 1 1
+d 1
+
