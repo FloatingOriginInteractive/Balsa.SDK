@@ -17,6 +17,9 @@
 		_EmissionColor("Emissive Color", Color) = (0,0,0)
 		
 
+		_FresnelColor("Fresnel Color", Color) = (0,0,0)
+		_FresnelPower("Fresnel Power", Float) = 1.0
+
 
 			// planar maps
 		_PlanarMask("Planar Mask", 2D) = "white" {}
@@ -28,6 +31,14 @@
 		[Gamma] _PlanarMetallic("Planar Metallic", Range(0.0, 1.0)) = 0.0
 
 		[Toggle(COMBINE_NORMALS)] _CombineNormals("Combine Normals", Int) = 0
+
+		[Toggle(SWAPX)] _SwapX("Swap X Plane coords", Int) = 0
+		[Toggle(SWAPY)] _SwapY("Swap Y Plane coords", Int) = 0
+		[Toggle(SWAPZ)] _SwapZ("Swap Z Plane coords", Int) = 0
+
+		X_ST("X Plane Scale/Offset", Vector) = (1,1,0,0)
+		Y_ST("Y Plane Scale/Offset", Vector) = (1,1,0,0)
+		Z_ST("Z Plane Scale/Offset", Vector) = (1,1,0,0)
 
 
 		_PlanarBlendPower("Planar Blend Power", Float) = 1.0
@@ -63,8 +74,14 @@
 		#pragma surface surf Standard vertex:vert fullforwardshadows 
 
 		// Use shader model 3.0 target, to get nicer looking lighting
-		#pragma target 3.0
-		#pragma shader_feature COMBINE_NORMALS TRIPLANAR
+		#pragma target 4.0
+		#pragma shader_feature COMBINE_NORMALS
+		#pragma shader_feature SWAPX
+		#pragma shader_feature SWAPY
+		#pragma shader_feature SWAPZ
+
+		#include "Dithering.cginc"
+		#include "BalsaStd.cginc"
 
 		struct Input 
 		{
@@ -72,6 +89,9 @@
 		   float2 uv_BumpMap : TEXCOORD;
 		   float3 vpos;
 		   float3 nrm;
+		   float4 screenPos;
+		   float3 viewDir;
+
 		};
 
 		sampler2D _MainTex;
@@ -104,11 +124,18 @@
 		half _Glossiness;
 		half _Metallic;
 
+		float4 X_ST;
+		float4 Y_ST;
+		float4 Z_ST;
 
 		half _PlanarGlossiness;
 		half _PlanarMetallic;
 		half _PlanarBlendPower;
 		half _PlanarBlendShift;
+
+
+		float4 _FresnelColor;
+		float _FresnelPower;
 		
 		fixed4 _Color;
 		fixed4 _PlanarColorFloor;
@@ -149,17 +176,35 @@
 			half mask = (m.r + m.g + m.b) * 0.3334 * m.a;
 
 			// sample triplanar maps
-			fixed4 cPlXZ = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.zx, _PlanarMainTex_ST)) * _Color;
-			fixed4 cPlXY = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.xy, _PlanarMainTex_ST)) * _Color;
-			fixed4 cPlYZ = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.yz, _PlanarMainTex_ST)) * _Color;
+#if SWAPX
+			fixed4 cPlYZ = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.zy * X_ST.xy + X_ST.zw, _PlanarMainTex_ST)) * _Color;
+			half3 nrmPlYZ = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.zy * X_ST.xy + X_ST.zw, _PlanarMainTex_ST)));
+			half4 metPlYZ = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.zy * X_ST.xy + X_ST.zw, _PlanarMainTex_ST));
+#else			
+			fixed4 cPlYZ = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.yz * X_ST.xy + X_ST.zw, _PlanarMainTex_ST)) * _Color;
+			half3 nrmPlYZ = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.yz * X_ST.xy + X_ST.zw, _PlanarMainTex_ST)));
+			half4 metPlYZ = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.yz * X_ST.xy + X_ST.zw, _PlanarMainTex_ST));
+#endif
+#if SWAPY
+			fixed4 cPlXZ = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.xz * Y_ST.xy + Y_ST.zw, _PlanarMainTex_ST)) * _Color;
+			half3 nrmPlXZ = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.xz * Y_ST.xy + Y_ST.zw, _PlanarMainTex_ST)));
+			half4 metPlXZ = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.xz * Y_ST.xy + Y_ST.zw, _PlanarMainTex_ST));
+#else
+			fixed4 cPlXZ = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.zx * Y_ST.xy + Y_ST.zw, _PlanarMainTex_ST)) * _Color;
+			half3 nrmPlXZ = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.zx * Y_ST.xy + Y_ST.zw, _PlanarMainTex_ST)));
+			half4 metPlXZ = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.zx * Y_ST.xy + Y_ST.zw, _PlanarMainTex_ST));
+#endif
+#if SWAPZ
+			fixed4 cPlXY = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.yx * Z_ST.xy + Z_ST.zw, _PlanarMainTex_ST)) * _Color;
+			half3 nrmPlXY = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.yx * Z_ST.xy + Z_ST.zw, _PlanarMainTex_ST)));
+			half4 metPlXY = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.yx * Z_ST.xy + Z_ST.zw, _PlanarMainTex_ST));
+#else			
+			fixed4 cPlXY = tex2D(_PlanarMainTex, GetSTMapping(IN.vpos.xy * Z_ST.xy + Z_ST.zw, _PlanarMainTex_ST)) * _Color;
+			half3 nrmPlXY = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.xy * Z_ST.xy + Z_ST.zw, _PlanarMainTex_ST)));
+			half4 metPlXY = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.xy * Z_ST.xy + Z_ST.zw, _PlanarMainTex_ST));
+#endif
 			
-			half4 metPlXZ = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.zx, _PlanarMetallicGlossMap_ST));
-			half4 metPlXY = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.xy, _PlanarMetallicGlossMap_ST));
-			half4 metPlYZ = tex2D(_PlanarMetallicGlossMap, GetSTMapping(IN.vpos.yz, _PlanarMetallicGlossMap_ST));
 			
-			half3 nrmPlXZ = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.zx, _PlanarBumpMap_ST)));
-			half3 nrmPlXY = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.xy, _PlanarBumpMap_ST)));
-			half3 nrmPlYZ = UnpackNormal(tex2D(_PlanarBumpMap, GetSTMapping(IN.vpos.yz, _PlanarBumpMap_ST)));
 
 			
 			half3 nrmDot = half3(ramp(abs(dot(IN.nrm, half3(1, 0, 0))), _PlanarBlendPower, _PlanarBlendShift),
@@ -191,8 +236,14 @@
 			o.Smoothness = glossy * ms.a;
 
 			o.Alpha = c.a;
-			o.Emission = tex2D(_EmissionMap, GetSTMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a;
+
+			half fresnel = 1.0 - saturate(dot(IN.viewDir, o.Normal));
+			float3 fresnelColor = _FresnelColor.rgb * pow(fresnel, _FresnelPower);
+			o.Emission = tex2D(_EmissionMap, GetUVMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a + fresnelColor;
 			o.Occlusion = tex2D(_OcclusionMap, GetSTMapping(IN.uv_MainTex, _OcclusionMap_ST)) * ( _OcclusionStrength);
+
+
+			ditherClip(IN.screenPos.xy / IN.screenPos.w, c.a);
 		}
 
 		

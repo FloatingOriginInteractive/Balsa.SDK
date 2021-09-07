@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: 3c93a027550b5bb419f089eccb8dbb3e
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Avro631_Propeller
+    100002: //RootNode
+    100004: Engine_Avro631_TypeR 1
+    100006: Propeller
+    100008: Engine_Avro631_TypeR_ext
+    100010: Engine_Avro631_TypeR_int
+    100012: Engine_Avro631_TypeR_Propeller
+    100014: Engine_Avro631_TypeR_PropellerBase
+    100016: connector_node_back
+    400000: Avro631_Propeller
+    400002: //RootNode
+    400004: Engine_Avro631_TypeR 1
+    400006: Propeller
+    400008: Engine_Avro631_TypeR_ext
+    400010: Engine_Avro631_TypeR_int
+    400012: Engine_Avro631_TypeR_Propeller
+    400014: Engine_Avro631_TypeR_PropellerBase
+    400016: connector_node_back
+    2100000: Engine_Avro631_TypeR_Mat
+    2300000: Avro631_Propeller
+    2300002: Engine_Avro631_TypeR 1
+    2300004: Propeller
+    2300006: //RootNode
+    2300008: Engine_Avro631_TypeR_ext
+    2300010: Engine_Avro631_TypeR_int
+    2300012: Engine_Avro631_TypeR_Propeller
+    2300014: Engine_Avro631_TypeR_PropellerBase
+    2300016: connector_node_back
+    3300000: Avro631_Propeller
+    3300002: Engine_Avro631_TypeR 1
+    3300004: Propeller
+    3300006: //RootNode
+    3300008: Engine_Avro631_TypeR_ext
+    3300010: Engine_Avro631_TypeR_int
+    3300012: Engine_Avro631_TypeR_Propeller
+    3300014: Engine_Avro631_TypeR_PropellerBase
+    3300016: connector_node_back
+    4300000: Engine_Avro631_TypeR
+    4300002: Avro631_Propeller
+    4300004: Propeller
+    4300006: Avro631_Engine
+    4300008: Engine_Avro631_TypeR_int
+    4300010: Engine_Avro631_TypeR_PropellerBase
+    4300012: Engine_Avro631_TypeR_Propeller
+    4300014: Engine_Avro631_TypeR_ext
+    4300016: connector_node_back
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

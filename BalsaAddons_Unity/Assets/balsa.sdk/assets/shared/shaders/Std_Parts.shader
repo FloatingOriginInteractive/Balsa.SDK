@@ -16,6 +16,9 @@
 		_EmissionMap("Emission", 2D) = "white" {}
 		_EmissionColor("Emissive Color", Color) = (0,0,0)
 
+		_FresnelColor("Fresnel Color", Color) = (0,0,0)
+		_FresnelPower("Fresnel Power", Float) = 1.0
+
 		_ZWrite("ZWrite", Int) = 1
 		_ZTest("ZTest", Int) = 4 //LEQual
 		_Cull("Culling", Int) = 2 //Back
@@ -23,12 +26,16 @@
 
 	}
 	SubShader {
-		Tags { "RenderType" = "Opaque" }
+		Tags { "RenderType" = "Opaque" "Queue" = "Geometry" }
 		LOD 200
 
 		Cull[_Cull]
 		ZTest[_ZTest]
 		ZWrite[_ZWrite]
+
+		//GrabPass { "_GrabTex" }
+
+		//Blend One OneMinusSrcAlpha
 
 		Stencil
 		{
@@ -39,15 +46,20 @@
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows 
+		#pragma surface surf Standard fullforwardshadows keepalpha
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
+
+		#include "Dithering.cginc"
+		#include "BalsaStd.cginc"
 
 		struct Input 
 		{
 		   float2 uv_MainTex : TEXCOORD;
 		   float2 uv_BumpMap : TEXCOORD;
+		   float4 screenPos;
+		   float3 viewDir;
 		};
 
 		sampler2D _MainTex;
@@ -65,6 +77,8 @@
 		sampler2D _EmissionMap;
 		float4 _EmissionMap_ST;
 
+		float4 _FresnelColor;
+		float _FresnelPower;
 
 		half _Glossiness;
 		half _Metallic;
@@ -80,28 +94,29 @@
 
 
 
-		float2 GetUVMapping(float2 uv, float4 mapST)
-		{
-			return float2(uv.x * mapST.x + mapST.z, uv.y * mapST.y + mapST.w);
-		}
-
 		void surf (Input IN, inout SurfaceOutputStandard o) 
 		{
 			// sample uv maps
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color ;
 			half3 nrm = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 			half4 met = tex2D(_MetallicGlossMap, GetUVMapping(IN.uv_MainTex, _MetallicGlossMap_ST));
 
 
-			o.Albedo = c.rgb;
+			o.Albedo = c.rgb * _Color.a;
 			o.Normal = nrm;
 				
 			o.Metallic = _Metallic * (met.r + met.g + met.b);
 			o.Smoothness = _Glossiness * met.a;
 
 			o.Alpha = c.a;
-			o.Emission = tex2D(_EmissionMap, GetUVMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a;
+
+			half fresnel = 1.0 - saturate(dot(IN.viewDir, o.Normal));
+			float3 fresnelColor = _FresnelColor.rgb * pow(fresnel, _FresnelPower);
+			o.Emission = tex2D(_EmissionMap, GetUVMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a + fresnelColor;
+
 			o.Occlusion = tex2D(_OcclusionMap, GetUVMapping(IN.uv_MainTex, _OcclusionMap_ST)) * ( _OcclusionStrength);
+
+			ditherClip(IN.screenPos.xy / IN.screenPos.w, c.a);
 		}
 
 		

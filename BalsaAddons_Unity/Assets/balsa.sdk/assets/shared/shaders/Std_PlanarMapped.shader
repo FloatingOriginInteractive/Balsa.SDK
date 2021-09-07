@@ -16,6 +16,9 @@
 		_EmissionMap("Emission", 2D) = "white" {}
 		_EmissionColor("Emissive Color", Color) = (0,0,0)
 
+		_FresnelColor("Fresnel Color", Color) = (0,0,0)
+		_FresnelPower("Fresnel Power", Float) = 1.0
+
 
 			// planar maps
 		_PlanarMask("Planar Mask", 2D) = "white" {}
@@ -38,12 +41,15 @@
 
 	SubShader
 	{
-		Tags { "RenderType" = "Opaque" }
+		Tags { "RenderType" = "Opaque" "Queue" = "Geometry" }
 		LOD 200
 
 		Cull[_Cull]
 		ZTest[_ZTest]
 		ZWrite[_ZWrite]
+		
+		//Blend One OneMinusSrcAlpha
+
 
 		Stencil
 		{
@@ -54,17 +60,22 @@
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard vertex:vert fullforwardshadows 
+		#pragma surface surf Standard vertex:vert fullforwardshadows keepalpha
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 		#pragma shader_feature COMBINE_NORMALS
+		#include "Dithering.cginc"
+		#include "BalsaStd.cginc"
 
 		struct Input 
 		{
 		   float2 uv_MainTex : TEXCOORD;
 		   float2 uv_BumpMap : TEXCOORD;
 		   float3 vpos;
+		   float4 screenPos;
+		   float3 viewDir;
+
 		};
 
 		sampler2D _MainTex;
@@ -101,6 +112,9 @@
 		half _PlanarGlossiness;
 		half _PlanarMetallic;
 
+		float4 _FresnelColor;
+		float _FresnelPower;
+
 		fixed4 _Color;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -110,15 +124,6 @@
 		// put more per-instance properties here
 		UNITY_INSTANCING_BUFFER_END(Props)
 
-		float2 GetPlanarMapping(float3 vpos, float4 mapST)
-		{
-			return float2(vpos.x * mapST.x + mapST.z, vpos.z * mapST.y + mapST.w);
-		}
-		float2 GetUVMapping(float2 uv, float4 mapST)
-		{
-			return float2(uv.x * mapST.x + mapST.z, uv.y * mapST.y + mapST.w);
-		}
-		
 		
 			
 		void vert(inout appdata_full v, out Input data) 
@@ -131,7 +136,7 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) 
 		{
 			// sample uv maps
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color ;
 			half3 nrm = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 			half4 met = tex2D(_MetallicGlossMap, GetUVMapping(IN.uv_MainTex, _MetallicGlossMap_ST));
 
@@ -146,7 +151,7 @@
 
 
 			// lerp using planar mask
-			o.Albedo = lerp(c, cPl, mask).rgb;
+			o.Albedo = lerp(c, cPl, mask).rgb * _Color.a;
 
 #if COMBINE_NORMALS
 			o.Normal = BlendNormals(nrm, nrmPl);
@@ -162,8 +167,13 @@
 			o.Smoothness = glossy * ms.a;
 
 			o.Alpha = c.a;
-			o.Emission = tex2D(_EmissionMap, GetUVMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a;
+
+			half fresnel = 1.0 - saturate(dot(IN.viewDir, o.Normal));
+			float3 fresnelColor = _FresnelColor.rgb * pow(fresnel, _FresnelPower);
+			o.Emission = tex2D(_EmissionMap, GetUVMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a + fresnelColor;
 			o.Occlusion = tex2D(_OcclusionMap, GetUVMapping(IN.uv_MainTex, _OcclusionMap_ST)) * ( _OcclusionStrength);
+
+			ditherClip(IN.screenPos.xy / IN.screenPos.w, c.a);
 		}
 
 		

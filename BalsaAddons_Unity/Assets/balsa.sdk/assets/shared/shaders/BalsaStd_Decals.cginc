@@ -1,4 +1,6 @@
-﻿
+﻿#ifndef __BALSA_DECALS__
+#define __BALSA_DECALS__
+
 
 
 #include "ColorBlending.cginc"
@@ -25,3 +27,5 @@ fixed3 BalsaStd_DecalBlending(fixed4 decals, fixed4 c, fixed alphaBoost, fixed a
 
 	return dc;
 }
+
+#endif

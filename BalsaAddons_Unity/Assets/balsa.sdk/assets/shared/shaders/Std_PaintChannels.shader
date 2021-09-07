@@ -20,6 +20,9 @@
 		_EmissionColor("Emissive Color", Color) = (0,0,0)
 
 
+		_FresnelColor("Fresnel Color", Color) = (0,0,0)
+		_FresnelPower("Fresnel Power", Float) = 1.0
+
 		_PaintMap ("Paint Map", 2D) = "black" {}
 		_PaintColor0 ("Primer Color (K)", Color) = (1,1,1,1)
 		_PaintColor1 ("First Accent Paint Color (R)", Color) = (1,1,1,1)
@@ -38,10 +41,9 @@
 		ZTest[_ZTest]
 		ZWrite[_ZWrite]
 
-		Tags
-		{
-			"RenderType"="Opaque"
-		}
+		//Blend One OneMinusSrcAlpha
+
+		Tags { "RenderType" = "Opaque" "Queue" = "Geometry" }
 		LOD 200
 
 		Stencil
@@ -53,18 +55,24 @@
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf Standard fullforwardshadows keepalpha
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
+		
+		#include "Dithering.cginc"
+		#include "BalsaStd.cginc"
 
-		sampler2D _MainTex;
+		sampler2D _MainTex;		
 		sampler2D _BumpMap;
 
 		struct Input
 		{
 			float2 uv_MainTex : TEXCOORD;
 		   float2 uv_BumpMap : TEXCOORD;
+		   float4 screenPos;
+		   float3 viewDir;
+
 		};
 		
 		half _Glossiness;
@@ -76,7 +84,10 @@
 
 		half4 _EmissionColor;
 		sampler2D _EmissionMap;
+		float4 _EmissionMap_ST;
 
+		float4 _FresnelColor;
+		float _FresnelPower;
 
 		fixed4 _Color;
 
@@ -111,7 +122,7 @@
 			baseColor = lerp(baseColor, fixed3(1,1,1), 1 - paintmap.a);			
 
 
-			o.Albedo = c.rgb * baseColor;
+			o.Albedo = c.rgb * baseColor * _Color.a;
 			o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
 
 			half4 ms = tex2D (_MetallicGlossMap, IN.uv_MainTex);	
@@ -119,8 +130,13 @@
 			o.Smoothness =  _Glossiness * ms.a;
 			o.Alpha = c.a;
 
-			o.Emission =  tex2D (_EmissionMap, IN.uv_MainTex).rgb * _EmissionColor.rgb * _EmissionColor.a;
+			half fresnel = 1.0 - saturate(dot(IN.viewDir, o.Normal));
+			float3 fresnelColor = _FresnelColor.rgb * pow(fresnel, _FresnelPower);
+			o.Emission = tex2D(_EmissionMap, GetUVMapping(IN.uv_MainTex, _EmissionMap_ST)).rgb * _EmissionColor.rgb * _EmissionColor.a + fresnelColor;
+
 			o.Occlusion = tex2D (_OcclusionMap, IN.uv_MainTex) *(1 -  _OcclusionStrength);
+
+			ditherClip(IN.screenPos.xy / IN.screenPos.w, c.a);
 		}
 
 
