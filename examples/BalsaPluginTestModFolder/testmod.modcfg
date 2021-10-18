@@ -5,7 +5,7 @@ ModCFG
 	title = Plugin Test Mod
 	author = Floating Origin Studios
 	modVersion = 0.1.0
-	requiresGameVersion = 0.18.0
+	requiresGameVersion = 0.100.1
 
 	Plugin
 	{
