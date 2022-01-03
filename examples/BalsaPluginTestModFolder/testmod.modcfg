@@ -4,8 +4,8 @@ ModCFG
 	// they also contain information about the mod itself, like the package title, author, version information, dependencies and so on.
 	title = Plugin Test Mod
 	author = Floating Origin Studios
-	modVersion = 0.1.0
-	requiresGameVersion = 0.100.1
+	modVersion = 0.2.2
+	requiresGameVersion = 0.101.0
 
 	Plugin
 	{
