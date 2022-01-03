@@ -13,30 +13,30 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - self
+  - UI_popup
+  - UI_world
+  - ownHead
+  - player
+  - reticles
+  - scenery_interactable
   - scenery
-  - scenery_interactive
-  - 
-  - 
-  - 
-  - 
-  - 
+  - scenery_far
+  - vegetation
+  - mapObjects
+  - characters
+  - playerbounds
+  - parts_nonSelectable
   - interior
+  - interiorfx
+  - OOI
+  - vehicle_safe
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - UI_screen
+  - UI_overlay
+  - UI_topMost
   m_SortingLayers:
   - name: Default
     uniqueID: 0
