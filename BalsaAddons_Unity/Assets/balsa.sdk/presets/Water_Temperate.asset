@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1fb9d9652dd7241b80700faffd94a3, type: 3}
+  m_Name: Water_Temperate
+  m_EditorClassIdentifier: 
+  waveSettings:
+    waterHeight: -106.44213
+    amplitude: 1.97
+    frequency: 0.5
+    speed: 0.4
+    chop: 3.1
+    smooth: 1.516
+    vertComplexity: 1
+    pixComplexity: 4
+    direction: 215
+    opposingWaves: 0
+  surfaceFX:
+    waterColor: {r: 0.14173195, g: 0.44502303, b: 0.6132076, a: 1}
+    enableSpecular: 1
+    specularLight: {fileID: 0}
+    specularBrightness: 1
+    specularPower: 13.2
+    specularColor: {r: 0.9294118, g: 0.94117653, b: 0.9607844, a: 1}
+    reflectPower: 8.05
+    reflectBlend: 0.622
+    nightWaterColor: {r: 0.025, g: 0.05, b: 0.075, a: 0.5}
+  subsurfaceFX:
+    enableSSS: 1
+    subsurfaceColor: {r: 0.18770024, g: 0.6981132, b: 0.6981132, a: 1}
+    enableSSSViewLimit: 0
+    SSSPower: 3.43
+    SSSThreshold: 3.68
+    SSSHeightCutoff: 100
+  shoreFX:
+    enableShoreFX: 1
+    enableRefraction: 1
+    foamColor: {r: 0.61385995, g: 0.7455413, b: 0.78, a: 1}
+    shallowColor: {r: 0.35109022, g: 0.59607846, b: 0.5425753, a: 1}
+    shallowColorMultiplier: 2.07
+    minWaveAmp: 0.6
+    shoreFoam:
+      lowFreq: 0.01
+      highFreq: 0.1
+      speed: 1.5
+      depthLowFreq: 6
+      depthHighFreq: 5
+    deepFoam:
+      enableDeepFoam: 1
+      lowFreq: 0.01
+      highFreq: 0.06
+      speed: 1
+      threshold: 4.68
+      lowFreqPower: 15.6
+      highFreqPower: 26.4
+    waterClarity: 24.2
+    waveDampDepth: 12
+  reflectFX:
+    skybox: {fileID: 0}
+    enableSSR: 0
+    enablePlanarReflect: 1
+    reflectTexSize: 512
+    reflectionDistortion: 1
+    skyboxCapture: 1
+  fogSettings:
+    sampleSkyboxAtHorizon: 1
+    horizonSampleOffset: 0
+    overrideUnityFogSettings: 0
+    overrideFogColor: {r: 0.32894266, g: 0.7903167, b: 0.9056604, a: 1}
+  underwater:
+    enableUnderwater: 1
+    fogTop: {r: 0.096698105, g: 0.48909992, b: 0.5, a: 1.2}
+    fogBottom: {r: 0.10377358, g: 0.41509432, b: 0.40040934, a: 1}
+    overlayColor: {r: 0.14150944, g: 0.5571005, b: 0.5660378, a: 1}
+    lipColor: {r: 0.030971883, g: 0.20455855, b: 0.2264151, a: 1}
+    waveColor: {r: 0.089444645, g: 0.27764183, b: 0.2830189, a: 1}
+    fogDensity: 5.24
+    fogHeightDensity: 1.97
