@@ -72,7 +72,7 @@ MonoBehaviour:
     skyboxCapture: 1
   fogSettings:
     sampleSkyboxAtHorizon: 1
-    horizonSampleOffset: 0.004
+    horizonSampleOffset: -0.05
     overrideUnityFogSettings: 0
     overrideFogColor: {r: 0.32894266, g: 0.7903167, b: 0.9056604, a: 1}
   underwater:
