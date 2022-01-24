@@ -51,8 +51,8 @@ MonoBehaviour:
       lowFreq: 0.01
       highFreq: 0.1
       speed: 1.5
-      depthLowFreq: 6
-      depthHighFreq: 5
+      depthLowFreq: 4
+      depthHighFreq: 2
     deepFoam:
       enableDeepFoam: 1
       lowFreq: 0.01

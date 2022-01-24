@@ -43,15 +43,15 @@ MonoBehaviour:
   shoreFX:
     enableShoreFX: 1
     enableRefraction: 1
-    foamColor: {r: 0.71, g: 0.914, b: 0.95, a: 1}
+    foamColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     shallowColor: {r: 0.5019608, g: 0.90824914, b: 1, a: 1}
     shallowColorMultiplier: 2
     minWaveAmp: 0.4
     shoreFoam:
-      lowFreq: 0.01875
+      lowFreq: 0.01
       highFreq: 0.2
-      speed: 3
-      depthLowFreq: 3
+      speed: 1.2
+      depthLowFreq: 4
       depthHighFreq: 2
     deepFoam:
       enableDeepFoam: 0
