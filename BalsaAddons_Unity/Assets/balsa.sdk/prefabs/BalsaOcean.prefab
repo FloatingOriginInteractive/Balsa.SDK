@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 782629461, guid: b3215a61a5b041443bbc705e4f8872d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterPreset: 1
-  customPreset: {fileID: 0}
+  preset: {fileID: 11400000, guid: 90766cee8772ae547b91ef69026dc4af, type: 2}
   previewShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   previewOpacity: 0.85
 --- !u!114 &2659089146556550987
