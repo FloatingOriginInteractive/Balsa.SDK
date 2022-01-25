@@ -28,7 +28,7 @@ MonoBehaviour:
     enableSpecular: 1
     specularLight: {fileID: 0}
     specularBrightness: 1
-    specularPower: 19.1
+    specularPower: 50
     specularColor: {r: 1, g: 1, b: 1, a: 1}
     reflectPower: 8.08
     reflectBlend: 0.385

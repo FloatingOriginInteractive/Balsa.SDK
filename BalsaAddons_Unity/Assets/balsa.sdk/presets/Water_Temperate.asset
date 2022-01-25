@@ -28,7 +28,7 @@ MonoBehaviour:
     enableSpecular: 1
     specularLight: {fileID: 0}
     specularBrightness: 1
-    specularPower: 13.2
+    specularPower: 50
     specularColor: {r: 0.9294118, g: 0.94117653, b: 0.9607844, a: 1}
     reflectPower: 8.05
     reflectBlend: 0.622
@@ -46,7 +46,7 @@ MonoBehaviour:
     foamColor: {r: 0.61385995, g: 0.7455413, b: 0.78, a: 1}
     shallowColor: {r: 0.35109022, g: 0.59607846, b: 0.5425753, a: 1}
     shallowColorMultiplier: 2.07
-    minWaveAmp: 0.6
+    minWaveAmp: 0.1
     shoreFoam:
       lowFreq: 0.01
       highFreq: 0.1

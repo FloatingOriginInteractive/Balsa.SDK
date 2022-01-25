@@ -28,10 +28,10 @@ MonoBehaviour:
     enableSpecular: 1
     specularLight: {fileID: 0}
     specularBrightness: 0.859
-    specularPower: 16.8
+    specularPower: 50
     specularColor: {r: 1, g: 1, b: 1, a: 1}
     reflectPower: 3.86
-    reflectBlend: 1.165
+    reflectBlend: 0.5
     nightWaterColor: {r: 0.025, g: 0.05, b: 0.075, a: 0.5}
   subsurfaceFX:
     enableSSS: 1
@@ -46,7 +46,7 @@ MonoBehaviour:
     foamColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     shallowColor: {r: 0.5019608, g: 0.90824914, b: 1, a: 1}
     shallowColorMultiplier: 2
-    minWaveAmp: 0.4
+    minWaveAmp: 0.1
     shoreFoam:
       lowFreq: 0.01
       highFreq: 0.2
@@ -68,7 +68,7 @@ MonoBehaviour:
     enableSSR: 0
     enablePlanarReflect: 1
     reflectTexSize: 256
-    reflectionDistortion: 0.634
+    reflectionDistortion: 1
     skyboxCapture: 1
   fogSettings:
     sampleSkyboxAtHorizon: 1
