@@ -1,7 +1,14 @@
 # Video Tutorials
 -----------------------------------
+## Balsa.SDK Installation and Setup
 
-## Balsa Map-Making - by HarvesteR
+If you are just getting started, this is the video to watch. It covers the install and setup steps for the SDK from the ground up.
+
+[![Part 0](https://img.youtube.com/vi/NmMyCeGIDFk/0.jpg)](https://www.youtube.com/watch?v=NmMyCeGIDFk)
+
+
+
+## Balsa Map-Making
 
 These are a series of video tutorials that provide a comprehensive walkthrough of the Balsa SDK for map-making.
 
