@@ -5,7 +5,12 @@ Keep in mind that just as the game, these pages are also a work in progress.
 
 
 ## Setting Up
-If you're just getting started, check out the [Getting Started](gettingstarted.md) guide.
+If you're just getting started, check out our basic setup Video Tutorial:
+
+[![Part 0](https://img.youtube.com/vi/NmMyCeGIDFk/0.jpg)](https://www.youtube.com/watch?v=NmMyCeGIDFk)
+
+Or have a read through the [Getting Started](gettingstarted.md) guide.
+
 
 
 ## Balsa Modding 101
