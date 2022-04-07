@@ -11,6 +11,37 @@ namespace FMODUnity
 {
     class EventBrowser : EditorWindow, ISerializationCallbackReceiver
     {
+        [SerializeField]
+        private bool isStandaloneWindow;
+
+        [NonSerialized]
+        float nextRepaintTime;
+
+        [NonSerialized]
+        float[] cachedMetering;
+
+        const float RepaintInterval = 1 / 30.0f;
+
+        private Texture2D borderIcon;
+        private GUIStyle borderStyle;
+
+        [NonSerialized]
+        TreeView treeView;
+
+        [NonSerialized]
+        SearchField searchField;
+
+        [SerializeField]
+        PreviewArea previewArea = new PreviewArea();
+
+        [SerializeField]
+        TreeView.State treeViewState;
+
+        [NonSerialized]
+        DateTime LastKnownCacheTime;
+
+        private SerializedProperty outputProperty;
+
         [MenuItem("FMOD/Event Browser", priority = 2)]
         public static void ShowWindow()
         {
@@ -18,7 +49,8 @@ namespace FMODUnity
             eventBrowser.minSize = new Vector2(380, 600);
 
             eventBrowser.BeginStandaloneWindow();
-            eventBrowser.Show();
+
+            EditorUtils.LoadPreviewBanks();
         }
 
         public static bool IsOpen
@@ -34,14 +66,6 @@ namespace FMODUnity
         public void OnAfterDeserialize()
         {
         }
-
-        [NonSerialized]
-        float nextRepaintTime;
-
-        [NonSerialized]
-        float[] cachedMetering;
-
-        const float RepaintInterval = 1/30.0f;
 
         void Update()
         {
@@ -75,6 +99,30 @@ namespace FMODUnity
 
         class TreeView : UnityEditor.IMGUI.Controls.TreeView
         {
+            private static readonly Texture2D folderOpenIcon = EditorUtils.LoadImage("FolderIconOpen.png");
+            private static readonly Texture2D folderClosedIcon = EditorUtils.LoadImage("FolderIconClosed.png");
+            private static readonly Texture2D eventIcon = EditorUtils.LoadImage("EventIcon.png");
+            private static readonly Texture2D snapshotIcon = EditorUtils.LoadImage("SnapshotIcon.png");
+            private static readonly Texture2D bankIcon = EditorUtils.LoadImage("BankIcon.png");
+            private static readonly Texture2D continuousParameterIcon = EditorUtils.LoadImage("ContinuousParameterIcon.png");
+            private static readonly Texture2D discreteParameterIcon = EditorUtils.LoadImage("DiscreteParameterIcon.png");
+            private static readonly Texture2D labeledParameterIcon = EditorUtils.LoadImage("LabeledParameterIcon.png");
+
+            private Dictionary<string, int> itemIDs = new Dictionary<string, int>();
+
+            private const string EventPrefix = "event:/";
+            private const string SnapshotPrefix = "snapshot:/";
+            private const string BankPrefix = "bank:/";
+            private const string ParameterPrefix = "parameter:/";
+
+            bool expandNextFolderSet = false;
+            string nextFramedItemPath;
+            private string[] searchStringSplit;
+
+            IList<int> noSearchExpandState;
+
+            float oldBaseIndent;
+
             public TreeView(State state) : base(state.baseState)
             {
                 noSearchExpandState = state.noSearchExpandState;
@@ -114,15 +162,6 @@ namespace FMODUnity
                     SetSelection(new List<int>());
                 }
             }
-
-            private static readonly Texture2D folderOpenIcon = EditorGUIUtility.Load("FMOD/FolderIconOpen.png") as Texture2D;
-            private static readonly Texture2D folderClosedIcon = EditorGUIUtility.Load("FMOD/FolderIconClosed.png") as Texture2D;
-            private static readonly Texture2D eventIcon = EditorGUIUtility.Load("FMOD/EventIcon.png") as Texture2D;
-            private static readonly Texture2D snapshotIcon = EditorGUIUtility.Load("FMOD/SnapshotIcon.png") as Texture2D;
-            private static readonly Texture2D bankIcon = EditorGUIUtility.Load("FMOD/BankIcon.png") as Texture2D;
-            private static readonly Texture2D continuousParameterIcon = EditorGUIUtility.Load("FMOD/ContinuousParameterIcon.png") as Texture2D;
-            private static readonly Texture2D discreteParameterIcon = EditorGUIUtility.Load("FMOD/DiscreteParameterIcon.png") as Texture2D;
-            private static readonly Texture2D labeledParameterIcon = EditorGUIUtility.Load("FMOD/LabeledParameterIcon.png") as Texture2D;
 
             private class LeafItem : TreeViewItem
             {
@@ -189,8 +228,6 @@ namespace FMODUnity
                 return new TreeViewItem(-1, -1);
             }
 
-            private Dictionary<string, int> itemIDs = new Dictionary<string, int>();
-
             private int AffirmItemID(string path)
             {
                 int id;
@@ -203,15 +240,6 @@ namespace FMODUnity
 
                 return id;
             }
-
-            private const string EventPrefix = "event:/";
-            private const string SnapshotPrefix = "snapshot:/";
-            private const string BankPrefix = "bank:/";
-            private const string ParameterPrefix = "parameter:/";
-
-            bool expandNextFolderSet = false;
-            string nextFramedItemPath;
-            private string[] searchStringSplit;
 
             public TypeFilter TypeFilter { get; set; }
             public bool DragEnabled { get; set; }
@@ -479,8 +507,6 @@ namespace FMODUnity
                 return DragAndDropVisualMode.None;
             }
 
-            IList<int> noSearchExpandState;
-
             protected override void SearchChanged(string newSearch)
             {
                 if (!string.IsNullOrEmpty(newSearch.Trim()))
@@ -533,8 +559,6 @@ namespace FMODUnity
                 }
             }
 
-            float oldBaseIndent;
-
             protected override void BeforeRowsGUI()
             {
                 oldBaseIndent = baseIndent;
@@ -574,6 +598,14 @@ namespace FMODUnity
             [Serializable]
             public class State
             {
+                public TreeViewState baseState;
+                public List<int> noSearchExpandState;
+                public ScriptableObject selectedObject;
+                public List<string> itemPaths = new List<string>();
+                public List<int> itemIDs = new List<int>();
+                public TypeFilter typeFilter = TypeFilter.All;
+                public bool dragEnabled = true;
+
                 public State() : this(new TreeViewState())
                 {
                 }
@@ -582,14 +614,6 @@ namespace FMODUnity
                 {
                     this.baseState = baseState;
                 }
-
-                public TreeViewState baseState;
-                public List<int> noSearchExpandState;
-                public ScriptableObject selectedObject;
-                public List<string> itemPaths = new List<string>();
-                public List<int> itemIDs = new List<int>();
-                public TypeFilter typeFilter = TypeFilter.All;
-                public bool dragEnabled = true;
             }
 
             new public State state
@@ -619,37 +643,17 @@ namespace FMODUnity
             }
         }
 
-        private Texture2D borderIcon;
-        private GUIStyle borderStyle;
-
         private void AffirmResources()
         {
             if (borderIcon == null)
             {
-                borderIcon = EditorGUIUtility.Load("FMOD/Border.png") as Texture2D;
+                borderIcon = EditorUtils.LoadImage("Border.png");
 
                 borderStyle = new GUIStyle(GUI.skin.box);
                 borderStyle.normal.background = borderIcon;
                 borderStyle.margin = new RectOffset();
             }
         }
-
-        [NonSerialized]
-        TreeView treeView;
-
-        [NonSerialized]
-        SearchField searchField;
-
-        [SerializeField]
-        PreviewArea previewArea = new PreviewArea();
-
-        [SerializeField]
-        TreeView.State treeViewState;
-
-        [NonSerialized]
-        DateTime LastKnownCacheTime;
-
-        private SerializedProperty outputProperty;
 
         bool InChooserMode { get { return outputProperty != null; } }
 
@@ -735,23 +739,8 @@ namespace FMODUnity
             [NonSerialized]
             public TreeView treeView;
 
-            public bool forceRepaint { get { return transportControls.forceRepaint; } }
-
             [NonSerialized]
             private EditorEventRef currentEvent;
-
-            void SetEvent(EditorEventRef eventRef)
-            {
-                if (eventRef != currentEvent)
-                {
-                    currentEvent = eventRef;
-
-                    EditorUtils.PreviewStop();
-                    transportControls.Reset();
-                    event3DPreview.Reset();
-                    parameterControls.Reset();
-                }
-            }
 
             [SerializeField]
             DetailsView detailsView = new DetailsView();
@@ -769,6 +758,23 @@ namespace FMODUnity
             EventParameterControls parameterControls = new EventParameterControls();
 
             private GUIStyle mainStyle;
+
+            private bool isNarrow;
+
+            public bool forceRepaint { get { return transportControls.forceRepaint; } }
+
+            void SetEvent(EditorEventRef eventRef)
+            {
+                if (eventRef != currentEvent)
+                {
+                    currentEvent = eventRef;
+
+                    EditorUtils.PreviewStop();
+                    transportControls.Reset();
+                    event3DPreview.Reset();
+                    parameterControls.Reset();
+                }
+            }
 
             private void AffirmResources()
             {
@@ -835,8 +841,6 @@ namespace FMODUnity
                 GUILayout.Box(GUIContent.none, GUILayout.Height(1), GUILayout.ExpandWidth(true));
             }
 
-            private bool isNarrow;
-
             private void DrawEventPreview(EditorEventRef eventRef, float[] metering)
             {
                 detailsView.DrawEvent(eventRef, isNarrow);
@@ -894,7 +898,7 @@ namespace FMODUnity
             {
                 if (copyIcon == null)
                 {
-                    copyIcon = EditorGUIUtility.Load("FMOD/CopyIcon.png") as Texture;
+                    copyIcon = EditorUtils.LoadImage("CopyIcon.png");
 
                     textFieldNameStyle = new GUIStyle(EditorStyles.label);
                     textFieldNameStyle.fontStyle = FontStyle.Bold;
@@ -993,13 +997,6 @@ namespace FMODUnity
         [Serializable]
         class TransportControls
         {
-            public bool forceRepaint { get; private set; }
-
-            public void Reset()
-            {
-                forceRepaint = false;
-            }
-
             private Texture playOff;
             private Texture playOn;
             private Texture stopOff;
@@ -1007,15 +1004,22 @@ namespace FMODUnity
             private Texture openIcon;
             private GUIStyle buttonStyle;
 
+            public bool forceRepaint { get; private set; }
+
+            public void Reset()
+            {
+                forceRepaint = false;
+            }
+
             private void AffirmResources()
             {
                 if (playOff == null)
                 {
-                    playOff = EditorGUIUtility.Load("FMOD/TransportPlayButtonOff.png") as Texture;
-                    playOn = EditorGUIUtility.Load("FMOD/TransportPlayButtonOn.png") as Texture;
-                    stopOff = EditorGUIUtility.Load("FMOD/TransportStopButtonOff.png") as Texture;
-                    stopOn = EditorGUIUtility.Load("FMOD/TransportStopButtonOn.png") as Texture;
-                    openIcon = EditorGUIUtility.Load("FMOD/transportOpen.png") as Texture;
+                    playOff = EditorUtils.LoadImage("TransportPlayButtonOff.png");
+                    playOn = EditorUtils.LoadImage("TransportPlayButtonOn.png");
+                    stopOff = EditorUtils.LoadImage("TransportStopButtonOff.png");
+                    stopOn = EditorUtils.LoadImage("TransportStopButtonOn.png");
+                    openIcon = EditorUtils.LoadImage("transportOpen.png");
 
                     buttonStyle = new GUIStyle();
                     buttonStyle.padding.left = 4;
@@ -1080,6 +1084,9 @@ namespace FMODUnity
             private float eventDistance = 0;
             private float eventOrientation = 0;
 
+            private Texture arena;
+            private Texture emitter;
+
             public void Reset()
             {
                 eventPosition = new Vector2(0, 0);
@@ -1087,15 +1094,12 @@ namespace FMODUnity
                 eventOrientation = 0;
             }
 
-            private Texture arena;
-            private Texture emitter;
-
             private void AffirmResources()
             {
                 if (arena == null)
                 {
-                    arena = EditorGUIUtility.Load("FMOD/preview.png") as Texture;
-                    emitter = EditorGUIUtility.Load("FMOD/previewemitter.png") as Texture;
+                    arena = EditorUtils.LoadImage("Preview.png");
+                    emitter = EditorUtils.LoadImage("PreviewEmitter.png");
                 }
             }
 
@@ -1188,13 +1192,13 @@ namespace FMODUnity
             [NonSerialized]
             private Dictionary<string, float> parameterValues = new Dictionary<string, float>();
 
-            public Dictionary<string, float> ParameterValues { get { return parameterValues; } }
-
             [NonSerialized]
             private Vector2 scrollPosition;
 
             [NonSerialized]
             private bool showGlobalParameters;
+
+            public Dictionary<string, float> ParameterValues { get { return parameterValues; } }
 
             public void Reset()
             {
@@ -1208,19 +1212,27 @@ namespace FMODUnity
 
                 foreach (EditorParamRef paramRef in selectedEvent.LocalParameters)
                 {
+                    if (!parameterValues.ContainsKey(paramRef.Name))
+                    {
+                        parameterValues[paramRef.Name] = paramRef.Default;
+                    }
+
                     CreateParamRefSlider(paramRef);
                 }
 
+                showGlobalParameters = selectedEvent.GlobalParameters.Count > 0 &&
+                    EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showGlobalParameters, "Global Parameters");
 
-                if (selectedEvent.GlobalParameters.Count > 0)
+                foreach (EditorParamRef paramRef in selectedEvent.GlobalParameters)
                 {
-                    showGlobalParameters = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showGlobalParameters, "Global Parameters");
+                    if (!parameterValues.ContainsKey(paramRef.Name))
+                    {
+                        parameterValues[paramRef.Name] = paramRef.Default;
+                    }
+
                     if (showGlobalParameters)
                     {
-                        foreach (EditorParamRef paramRef in selectedEvent.GlobalParameters)
-                        {
-                            CreateParamRefSlider(paramRef, true);
-                        }
+                        CreateParamRefSlider(paramRef, true);
                     }
                 }
 
@@ -1229,11 +1241,6 @@ namespace FMODUnity
 
             public void CreateParamRefSlider(EditorParamRef paramRef, bool isGlobal = false)
             {
-                if (!parameterValues.ContainsKey(paramRef.Name))
-                {
-                    parameterValues[paramRef.Name] = paramRef.Default;
-                }
-
                 if (paramRef.Type == ParameterType.Labeled)
                 {
                     parameterValues[paramRef.Name] = EditorGUILayout.IntPopup(
@@ -1271,8 +1278,8 @@ namespace FMODUnity
             {
                 if (meterOn == null)
                 {
-                    meterOn = EditorGUIUtility.Load("FMOD/LevelMeter.png") as Texture;
-                    meterOff = EditorGUIUtility.Load("FMOD/LevelMeterOff.png") as Texture;
+                    meterOn = EditorUtils.LoadImage("LevelMeter.png");
+                    meterOff = EditorUtils.LoadImage("LevelMeterOff.png");
                 }
             }
 
@@ -1562,6 +1569,7 @@ namespace FMODUnity
             outputProperty = property;
             searchField.SetFocus();
             treeView.DragEnabled = false;
+            ReadEventCache();
         }
 
         private void BeginStandaloneWindow()
@@ -1570,6 +1578,7 @@ namespace FMODUnity
             outputProperty = null;
             searchField.SetFocus();
             treeView.DragEnabled = true;
+            isStandaloneWindow = true;
         }
 
         public void OnEnable()
@@ -1589,13 +1598,19 @@ namespace FMODUnity
             SceneView.duringSceneGui += SceneUpdate;
 
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyUpdate;
-            
+
+            if (isStandaloneWindow)
+            {
+                EditorUtils.LoadPreviewBanks();
+            }
+
             IsOpen = true;
         }
 
         public void OnDestroy()
         {
             EditorUtils.PreviewStop();
+            EditorUtils.UnloadPreviewBanks();
 
             IsOpen = false;
         }

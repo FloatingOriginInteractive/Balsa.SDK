@@ -7,6 +7,13 @@ namespace FMODUnity
     {
         const float ElementPadding = 2;
 
+        public DrawElementWithLabelDelegate drawElementWithLabelCallback;
+
+        public delegate void DrawElementWithLabelDelegate(Rect rect, float labelRight, int index,
+            bool active, bool focused);
+
+        private float labelRight;
+
         public ListView(SerializedProperty property)
             : base(property.serializedObject, property, true, false, true, true)
         {
@@ -14,13 +21,6 @@ namespace FMODUnity
             elementHeight = EditorGUIUtility.singleLineHeight + ElementPadding;
             drawElementCallback = DrawElementWrapper;
         }
-
-        public DrawElementWithLabelDelegate drawElementWithLabelCallback;
-
-        public delegate void DrawElementWithLabelDelegate(Rect rect, float labelRight, int index,
-            bool active, bool focused);
-
-        private float labelRight;
 
         public void DrawLayout()
         {

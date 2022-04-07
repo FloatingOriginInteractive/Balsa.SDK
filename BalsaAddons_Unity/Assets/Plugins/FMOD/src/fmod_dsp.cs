@@ -523,7 +523,7 @@ namespace FMOD
     public enum DSP_NORMALIZE : int
     {
         FADETIME,
-        THRESHHOLD,
+        THRESHOLD,
         MAXAMP
     }
 

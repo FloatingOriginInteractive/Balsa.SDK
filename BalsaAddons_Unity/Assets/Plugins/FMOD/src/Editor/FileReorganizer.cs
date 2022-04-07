@@ -8,10 +8,36 @@ using UnityEngine;
 
 namespace FMODUnity
 {
-
     public class FileReorganizer : EditorWindow, ISerializationCallbackReceiver
     {
-        [MenuItem(Settings.ReorganizerMenuItemPath)]
+        public const string ReorganizerMenuItemPath = "FMOD/Reorganize Plugin Files";
+
+        [SerializeField]
+        private List<Task> tasks = new List<Task>();
+
+        [SerializeField]
+        private int taskCount;
+
+        [SerializeField]
+        private int currentTask;
+
+        private TaskView taskView;
+
+        [SerializeField]
+        private TreeViewState taskViewState = new TreeViewState();
+
+        [SerializeField]
+        private MultiColumnHeaderState taskHeaderState;
+
+        [SerializeField]
+        bool reloadingFromSerializedState = false;
+
+        [NonSerialized]
+        private GUIContent statusContent = GUIContent.none;
+
+        IEnumerator<string> processingState;
+
+        [MenuItem(ReorganizerMenuItemPath)]
         public static void ShowWindow()
         {
             FileReorganizer reorganizer = GetWindow<FileReorganizer>("FMOD File Reorganizer");
@@ -25,6 +51,8 @@ namespace FMODUnity
         [Serializable]
         class Task
         {
+            public int step = int.MaxValue;
+            
             private Task()
             {
             }
@@ -60,7 +88,7 @@ namespace FMODUnity
                     source = path,
                     statusText = string.Format(
                         "{0} is missing.\nYou may need to reinstall the {1} support package from {2}.",
-                        path, platform.DisplayName, Settings.DownloadURL),
+                        path, platform.DisplayName, EditorSettings.DownloadURL),
                 };
             }
 
@@ -76,7 +104,6 @@ namespace FMODUnity
             }
 
             public Platform platform { get; private set; }
-            public int step = int.MaxValue;
             public string source { get; private set; }
             public string destination { get; private set; }
 
@@ -116,23 +143,6 @@ namespace FMODUnity
             public string platformName { get { return (platform != null) ? platform.DisplayName : string.Empty; } }
         }
 
-        [SerializeField]
-        private List<Task> tasks = new List<Task>();
-
-        [SerializeField]
-        private int taskCount;
-
-        [SerializeField]
-        private int currentTask;
-
-        private TaskView taskView;
-
-        [SerializeField]
-        private TreeViewState taskViewState = new TreeViewState();
-
-        [SerializeField]
-        private MultiColumnHeaderState taskHeaderState;
-
         public void OnBeforeSerialize()
         {
             taskViewState = taskView.state;
@@ -142,9 +152,6 @@ namespace FMODUnity
         public void OnAfterDeserialize()
         {
         }
-
-        [SerializeField]
-        bool reloadingFromSerializedState = false;
 
         void OnEnable()
         {
@@ -270,6 +277,12 @@ namespace FMODUnity
 
         class TaskView : TreeView
         {
+            private List<Task> tasks;
+
+            public delegate void TaskSelectedHandler(Task task);
+
+            public event TaskSelectedHandler taskSelected;
+
             public TaskView(TreeViewState state, MultiColumnHeader header, List<Task> tasks)
                 : base(state, header)
             {
@@ -322,8 +335,6 @@ namespace FMODUnity
                 Description,
             }
 
-            private List<Task> tasks;
-
             private class TaskItem : TreeViewItem
             {
                 public Task task;
@@ -359,10 +370,6 @@ namespace FMODUnity
 
                 return root;
             }
-
-            public delegate void TaskSelectedHandler(Task task);
-
-            public event TaskSelectedHandler taskSelected;
 
             protected override bool CanMultiSelect(TreeViewItem item)
             {
@@ -647,6 +654,28 @@ namespace FMODUnity
 
         private class Resources
         {
+            private static GUIStyle statusColumnStyle;
+
+            private static GUIStyle statusBarStyle;
+
+            private static float statusHeight;
+
+            private static GUIStyle stepStyle;
+
+            public static readonly GUIContent SourcePrefix = new GUIContent("Move");
+            public static readonly GUIContent DestinationPrefix = new GUIContent("to");
+            public static readonly GUIContent RemovePrefix = new GUIContent("Remove");
+
+            private static Vector2 prefixSize;
+
+            private static GUIStyle prefixStyle;
+
+            private static GUIStyle suffixStyle;
+
+            private static GUIStyle assetPathStyle;
+
+            private static bool cacheInitialized = false;
+
             public static readonly Dictionary<Task.Status, Texture> StatusIcon =
                 new Dictionary<Task.Status, Texture>() {
                 {  Task.Status.Pending, EditorGUIUtility.FindTexture("TestNormal") },
@@ -669,15 +698,11 @@ namespace FMODUnity
                 return statusColumnStyle;
             }
 
-            private static GUIStyle statusColumnStyle;
-
             public static GUIStyle StatusBarStyle()
             {
                 AffirmCache();
                 return statusBarStyle;
             }
-
-            private static GUIStyle statusBarStyle;
 
             public static GUIStyle PlatformStyle()
             {
@@ -697,19 +722,11 @@ namespace FMODUnity
                 return statusHeight;
             }
 
-            private static float statusHeight;
-
             public static GUIStyle StepStyle()
             {
                 AffirmCache();
                 return stepStyle;
             }
-
-            private static GUIStyle stepStyle;
-
-            public static readonly GUIContent SourcePrefix = new GUIContent("Move");
-            public static readonly GUIContent DestinationPrefix = new GUIContent("to");
-            public static readonly GUIContent RemovePrefix = new GUIContent("Remove");
 
             public static Vector2 PrefixSize()
             {
@@ -717,15 +734,11 @@ namespace FMODUnity
                 return prefixSize;
             }
 
-            private static Vector2 prefixSize;
-
             public static GUIStyle PrefixStyle()
             {
                 AffirmCache();
                 return prefixStyle;
             }
-
-            private static GUIStyle prefixStyle;
 
             public static GUIStyle SuffixStyle()
             {
@@ -733,17 +746,11 @@ namespace FMODUnity
                 return suffixStyle;
             }
 
-            private static GUIStyle suffixStyle;
-
             public static GUIStyle AssetPathStyle()
             {
                 AffirmCache();
                 return assetPathStyle;
             }
-
-            private static GUIStyle assetPathStyle;
-
-            private static bool cacheInitialized = false;
 
             private static void AffirmCache()
             {
@@ -780,9 +787,6 @@ namespace FMODUnity
                 }
             }
         }
-
-        [NonSerialized]
-        private GUIContent statusContent = GUIContent.none;
 
         void OnTaskSelected(Task task)
         {
@@ -914,6 +918,42 @@ namespace FMODUnity
 
         private struct TaskGenerator
         {
+            const string AssetsFolder = "Assets";
+
+            private const string FMODRoot = "Assets/Plugins/FMOD";
+            private const string FMODSource = FMODRoot + "/src";
+
+            private static readonly string[] BaseFolders = {
+                FMODSource,
+                FMODRoot,
+                "Assets/Plugins",
+                "Assets",
+            };
+
+            private static readonly MoveRecord[] looseAssets = {
+                // Release 1.10 layout
+                new MoveRecord() { source = FMODRoot + "/fmodplugins.cpp", destination = "obsolete" },
+                new MoveRecord() { source = "Assets/GoogleVR", destination = "addons" },
+                new MoveRecord() { source = "Assets/ResonanceAudio", destination = "addons" },
+                new MoveRecord() { source = "Assets/Resources/FMODStudioSettings.asset", destination = "Resources" },
+                new MoveRecord() { source = "Assets/FMODStudioCache.asset", destination = "Resources" },
+
+                // Release 2.0 layout
+                new MoveRecord() { source = FMODRoot + "/src/Runtime/fmodplugins.cpp", destination = "obsolete" },
+
+                // Release 2.1 layout
+                new MoveRecord() { source = FMODRoot + "/src/Runtime/fmod_static_plugin_support.h", destination = "obsolete" },
+
+                // Release 2.2 layout
+                new MoveRecord() { source = FMODRoot + "/src/fmodplugins.cpp", destination = "obsolete" },
+                new MoveRecord() { source = FMODRoot + "/src/fmod_static_plugin_support.h", destination = "obsolete" },
+            };
+
+            private static readonly string[] foldersToCleanUp = {
+                "Assets/Plugins/FMOD/Runtime",
+                "Assets/Plugins/Editor",
+            };
+
             private List<Task> tasks;
 
             public static void Generate(List<Task> tasks)
@@ -926,8 +966,6 @@ namespace FMODUnity
                 generator.GenerateTasksForLegacyCodeFiles();
                 generator.GenerateTasksForFolderCleanup();
             }
-
-            const string AssetsFolder = "Assets";
 
             private void GenerateTasksForPlatform(Platform platform)
             {
@@ -994,17 +1032,7 @@ namespace FMODUnity
                 }
             }
 
-            private const string FMODRoot = "Assets/Plugins/FMOD";
-            private const string FMODSource = FMODRoot + "/src";
-
-            private static readonly string[] BaseFolders = {
-                FMODSource,
-                FMODRoot,
-                "Assets/Plugins",
-                "Assets",
-            };
-
-            private void AddFolderTasks(string path)
+           private void AddFolderTasks(string path)
             {
                 string baseFolder = BaseFolders.First(f => path.StartsWith(f));
 
@@ -1067,8 +1095,10 @@ namespace FMODUnity
                     {
                         foreach (string sourcePath in FindFileAssets(folder.source))
                         {
-                            AddMoveTask(sourcePath,
-                                string.Format("{0}/{1}/{2}", FMODRoot, folder.destination, Path.GetFileName(sourcePath)));
+                            string filename = Path.GetFileName(sourcePath);
+
+                            AddMoveTask(
+                                sourcePath, $"Assets/{RuntimeUtils.PluginBasePath}/{folder.destination}/{filename}");
 
                         }
 
@@ -1077,31 +1107,12 @@ namespace FMODUnity
                 }
             }
 
-            private static readonly MoveRecord[] looseAssets = {
-                // Release 1.10 layout
-                new MoveRecord() { source = FMODRoot + "/fmodplugins.cpp", destination = "obsolete" },
-                new MoveRecord() { source = "Assets/GoogleVR", destination = "addons" },
-                new MoveRecord() { source = "Assets/ResonanceAudio", destination = "addons" },
-                new MoveRecord() { source = "Assets/Resources/FMODStudioSettings.asset", destination = "Resources" },
-                new MoveRecord() { source = "Assets/FMODStudioCache.asset", destination = "Resources" },
-
-                // Release 2.0 layout
-                new MoveRecord() { source = FMODRoot + "/src/Runtime/fmodplugins.cpp", destination = "obsolete" },
-
-                // Release 2.1 layout
-                new MoveRecord() { source = FMODRoot + "/src/Runtime/fmod_static_plugin_support.h", destination = "obsolete" },
-
-                // Release 2.2 layout
-                new MoveRecord() { source = FMODRoot + "/src/fmodplugins.cpp", destination = "obsolete" },
-                new MoveRecord() { source = FMODRoot + "/src/fmod_static_plugin_support.h", destination = "obsolete" },
-            };
-
             private void GenerateTasksForLooseAssets()
             {
                 foreach (MoveRecord asset in looseAssets)
                 {
-                    string destinationPath =
-                        string.Format("{0}/{1}/{2}", FMODRoot, asset.destination, Path.GetFileName(asset.source));
+                    string filename = Path.GetFileName(asset.source);
+                    string destinationPath = $"Assets/{RuntimeUtils.PluginBasePath}/{asset.destination}/{filename}";
 
                     if (AssetExists(asset.source) && !AssetExists(destinationPath))
                     {
@@ -1150,7 +1161,7 @@ namespace FMODUnity
             {
                 foreach (string path in FindFileAssets(FMODRoot).Where(p => p.EndsWith(".cs")))
                 {
-                    string destinationPath = string.Format("{0}/{1}", FMODSource, Path.GetFileName(path));
+                    string destinationPath = $"Assets/{RuntimeUtils.PluginBasePath}/src/{Path.GetFileName(path)}";
 
                     if (!AssetExists(destinationPath))
                     {
@@ -1158,11 +1169,6 @@ namespace FMODUnity
                     }
                 }
             }
-
-            private static readonly string[] foldersToCleanUp = {
-                "Assets/Plugins/FMOD/Runtime",
-                "Assets/Plugins/Editor",
-            };
 
             private void GenerateTasksForFolderCleanup()
             {
@@ -1177,13 +1183,18 @@ namespace FMODUnity
 
             private static IEnumerable<string> FindFileAssets(string folder)
             {
-                return AssetDatabase.FindAssets(string.Empty, new string[] { folder })
-                    .Select(g => AssetDatabase.GUIDToAssetPath(g))
-                    .Where(p => (EditorUtils.GetParentFolder(p) == folder) && !AssetDatabase.IsValidFolder(p));
+                if (AssetDatabase.IsValidFolder(folder))
+                {
+                    return AssetDatabase.FindAssets(string.Empty, new string[] { folder })
+                        .Select(g => AssetDatabase.GUIDToAssetPath(g))
+                        .Where(p => (EditorUtils.GetParentFolder(p) == folder) && !AssetDatabase.IsValidFolder(p));
+                }
+                else
+                {
+                    return Enumerable.Empty<string>();
+                }
             }
         }
-
-        IEnumerator<string> processingState;
 
         private void StartProcessing()
         {

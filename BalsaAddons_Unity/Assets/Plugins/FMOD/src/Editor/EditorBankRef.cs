@@ -5,6 +5,29 @@ namespace FMODUnity
 {
     public class EditorBankRef : ScriptableObject
     {
+        [SerializeField]
+        public string Path;
+
+        [SerializeField]
+        public string Name;
+
+        [SerializeField]
+        public string StudioPath;
+
+        [SerializeField]
+        Int64 lastModified;
+
+        [SerializeField]
+        public List<NameValuePair> FileSizes;
+
+        public bool Exists;
+
+        public DateTime LastModified
+        {
+            get { return new DateTime(lastModified); }
+            set { lastModified = value.Ticks; }
+        }
+
         public static string CalculateName(string filePath, string basePath)
         {
             string relativePath = filePath.Substring(basePath.Length + 1);
@@ -48,30 +71,5 @@ namespace FMODUnity
                 Value = value;
             }
         }
-
-        [SerializeField]
-        public string Path;
-
-        [SerializeField]
-        public string Name;
-
-        [SerializeField]
-        public string StudioPath;
-
-        [SerializeField]
-        Int64 lastModified;
-        public DateTime LastModified
-        {
-            get { return new DateTime(lastModified); }
-            set { lastModified = value.Ticks; }
-        }
-        
-        [SerializeField]
-        public FMOD.RESULT LoadResult;
-
-        [SerializeField]        
-        public List<NameValuePair> FileSizes;
-
-        public bool Exists;
     }
 }

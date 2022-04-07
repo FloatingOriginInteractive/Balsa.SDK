@@ -26,6 +26,48 @@ namespace FMODUnityResonance
     /// functionality.
     public static class FmodResonanceAudio
     {
+        /// Maximum allowed gain value in decibels.
+        public const float maxGainDb = 24.0f;
+
+        /// Minimum allowed gain value in decibels.
+        public const float minGainDb = -24.0f;
+
+        /// Maximum allowed reverb brightness modifier value.
+        public const float maxReverbBrightness = 1.0f;
+
+        /// Minimum allowed reverb brightness modifier value.
+        public const float minReverbBrightness = -1.0f;
+
+        /// Maximum allowed reverb time modifier value.
+        public const float maxReverbTime = 3.0f;
+
+        /// Maximum allowed reflectivity multiplier of a room surface material.
+        public const float maxReflectivity = 2.0f;
+
+        // Right-handed to left-handed matrix converter (and vice versa).
+        private static readonly Matrix4x4 flipZ = Matrix4x4.Scale(new Vector3(1, 1, -1));
+
+        // Get a handle to the Resonance Audio Listener FMOD Plugin.
+        private static readonly string listenerPluginName = "Resonance Audio Listener";
+
+        // Size of |RoomProperties| struct in bytes.
+        private static readonly int roomPropertiesSize = FMOD.MarshalHelper.SizeOf(typeof(RoomProperties));
+
+        // Plugin data parameter index for the room properties.
+        private static readonly int roomPropertiesIndex = 1;
+
+        // Boundaries instance to be used in room detection logic.
+        private static Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+
+        // Container to store the currently active rooms in the scene.
+        private static List<FmodResonanceAudioRoom> enabledRooms = new List<FmodResonanceAudioRoom>();
+
+        // Current listener position.
+        private static FMOD.VECTOR listenerPositionFmod = new FMOD.VECTOR();
+
+        // FMOD Resonance Audio Listener Plugin.
+        private static FMOD.DSP listenerPlugin;
+
         /// Updates the room effects of the environment with given |room| properties.
         /// @note This should only be called from the main Unity thread.
         public static void UpdateAudioRoom(FmodResonanceAudioRoom room, bool roomEnabled)
@@ -76,24 +118,6 @@ namespace FMODUnityResonance
             bounds.size = Vector3.Scale(room.transform.lossyScale, room.size);
             return bounds.Contains(rotationInverse * relativePosition);
         }
-
-        /// Maximum allowed gain value in decibels.
-        public const float maxGainDb = 24.0f;
-
-        /// Minimum allowed gain value in decibels.
-        public const float minGainDb = -24.0f;
-
-        /// Maximum allowed reverb brightness modifier value.
-        public const float maxReverbBrightness = 1.0f;
-
-        /// Minimum allowed reverb brightness modifier value.
-        public const float minReverbBrightness = -1.0f;
-
-        /// Maximum allowed reverb time modifier value.
-        public const float maxReverbTime = 3.0f;
-
-        /// Maximum allowed reflectivity multiplier of a room surface material.
-        public const float maxReflectivity = 2.0f;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RoomProperties
@@ -259,32 +283,8 @@ namespace FMODUnityResonance
                     }
                 }
             }
-            Debug.LogError(listenerPluginName + " not found in the FMOD project.");
+            RuntimeUtils.DebugLogError(listenerPluginName + " not found in the FMOD project.");
             return dsp;
         }
-
-        // Right-handed to left-handed matrix converter (and vice versa).
-        private static readonly Matrix4x4 flipZ = Matrix4x4.Scale(new Vector3(1, 1, -1));
-
-        // Get a handle to the Resonance Audio Listener FMOD Plugin.
-        private static readonly string listenerPluginName = "Resonance Audio Listener";
-
-        // Size of |RoomProperties| struct in bytes.
-        private static readonly int roomPropertiesSize = FMOD.MarshalHelper.SizeOf(typeof(RoomProperties));
-
-        // Plugin data parameter index for the room properties.
-        private static readonly int roomPropertiesIndex = 1;
-
-        // Boundaries instance to be used in room detection logic.
-        private static Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
-
-        // Container to store the currently active rooms in the scene.
-        private static List<FmodResonanceAudioRoom> enabledRooms = new List<FmodResonanceAudioRoom>();
-
-        // Current listener position.
-        private static FMOD.VECTOR listenerPositionFmod = new FMOD.VECTOR();
-
-        // FMOD Resonance Audio Listener Plugin.
-        private static FMOD.DSP listenerPlugin;
     }
 }

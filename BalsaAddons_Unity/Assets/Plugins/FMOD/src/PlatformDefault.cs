@@ -8,12 +8,12 @@ namespace FMODUnity
 {
     public class PlatformDefault : Platform
     {
+        public const string ConstIdentifier = "default";
+
         public PlatformDefault()
         {
             Identifier = ConstIdentifier;
         }
-
-        public const string ConstIdentifier = "default";
 
         public override string DisplayName { get { return "Default"; } }
         public override void DeclareRuntimePlatforms(Settings settings) { }

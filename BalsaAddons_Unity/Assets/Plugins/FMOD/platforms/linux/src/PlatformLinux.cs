@@ -55,44 +55,25 @@ namespace FMODUnity
 
         protected override IEnumerable<FileRecord> GetBinaryFiles(BuildTarget buildTarget, bool allVariants, string suffix)
         {
-            foreach (string architecture in GetArchitectures(buildTarget))
-            {
-                yield return new FileRecord(string.Format("{0}/libfmodstudio{1}.so", architecture, suffix));
-            }
+            yield return new FileRecord(string.Format("x86_64/libfmodstudio{0}.so", suffix));
         }
 
         protected override IEnumerable<FileRecord> GetOptionalBinaryFiles(BuildTarget buildTarget, bool allVariants)
         {
             if (allVariants)
             {
-                foreach (string architecture in new string[] { "x86", "x86_64" })
-                {
-                    yield return new FileRecord(string.Format("{0}/libfmod.so", architecture));
-                    yield return new FileRecord(string.Format("{0}/libfmodL.so", architecture));
-                }
-
-                yield return new FileRecord("x86/libfmodstudio.so");
-                yield return new FileRecord("x86/libfmodstudioL.so");
-
-                yield return new FileRecord("x86/libgvraudio.so");
-                yield return new FileRecord("x86/libresonanceaudio.so");
+                yield return new FileRecord("x86_64/libfmod.so");
+                yield return new FileRecord("x86_64/libfmodL.so");
             }
 
-            foreach (string architecture in GetArchitectures(buildTarget))
-            {
-                yield return new FileRecord(string.Format("{0}/libgvraudio.so", architecture));
-                yield return new FileRecord(string.Format("{0}/libresonanceaudio.so", architecture));
-            }
+            yield return new FileRecord("x86_64/libgvraudio.so");
+            yield return new FileRecord("x86_64/libresonanceaudio.so");
         }
 
-        private static IEnumerable<string> GetArchitectures(BuildTarget buildTarget)
+        protected override IEnumerable<string> GetObsoleteFiles()
         {
-            bool universal = false;
-
-            if (universal || buildTarget == BuildTarget.StandaloneLinux64)
-            {
-                yield return "x86_64";
-            }
+            yield return "platforms/linux/lib/x86/libfmodstudio.so";
+            yield return "platforms/linux/lib/x86/libfmodstudioL.so";
         }
 #endif
 

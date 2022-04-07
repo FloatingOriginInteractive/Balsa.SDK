@@ -11,6 +11,8 @@ namespace FMODUnity
 #if UNITY_EDITOR
         public string Path;
 
+        public static Func<string, FMOD.GUID> GuidLookupDelegate;
+
         public override string ToString()
         {
             return string.Format("{0} ({1})", Guid, Path);
@@ -22,6 +24,16 @@ namespace FMODUnity
             {
                 return string.IsNullOrEmpty(Path) && Guid.IsNull;
             }
+        }
+
+        public static EventReference Find(string path)
+        {
+            if (GuidLookupDelegate == null)
+            {
+                throw new InvalidOperationException("EventReference.Find called before EventManager was initialized");
+            }
+
+            return new EventReference { Path = path, Guid = GuidLookupDelegate(path) };
         }
 #else
         public override string ToString()

@@ -17,6 +17,10 @@ namespace FMODUnity
 
         SerializedProperty data1, data2;
 
+        static GUIContent NotFoundWarning;
+
+        string currentPath;
+
         [SerializeField]
         EditorParamRef editorParamRef;
 
@@ -28,15 +32,11 @@ namespace FMODUnity
             value = serializedObject.FindProperty("value");
         }
 
-        static GUIContent NotFoundWarning;
-
-        string currentPath;
-
         public override void OnInspectorGUI()
         {
             if (NotFoundWarning == null)
             {
-                Texture warningIcon = EditorGUIUtility.Load("FMOD/NotFound.png") as Texture;
+                Texture warningIcon = EditorUtils.LoadImage("NotFound.png");
                 NotFoundWarning = new GUIContent("Parameter Not Found", warningIcon);
             }
 

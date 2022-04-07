@@ -7,7 +7,19 @@ namespace FMODUnity
     {
         private static BankRefreshWindow instance = null;
 
+        SerializedObject serializedSettings;
+        SerializedProperty cooldown;
+        SerializedProperty showWindow;
+
+        private bool readyToRefreshBanks = false;
+        private float closeTime = float.MaxValue;
+        private string lastRefreshError = null;
+
+        const float CloseDelay = 5;
+
         public static bool IsVisible { get { return instance != null; } }
+
+        public static bool ReadyToRefreshBanks { get { return instance == null || instance.readyToRefreshBanks; } }
 
         public static void ShowWindow()
         {
@@ -21,10 +33,6 @@ namespace FMODUnity
                 instance.ShowUtility();
             }
         }
-
-        SerializedObject serializedSettings;
-        SerializedProperty cooldown;
-        SerializedProperty showWindow;
 
         void OnEnable()
         {
@@ -51,14 +59,6 @@ namespace FMODUnity
             }
         }
 
-        public static bool ReadyToRefreshBanks { get { return instance == null || instance.readyToRefreshBanks; } }
-
-        private bool readyToRefreshBanks = false;
-        private float closeTime = float.MaxValue;
-        private string lastRefreshError = null;
-
-        const float CloseDelay = 5;
-
         void OnInspectorUpdate()
         {
             Repaint();
@@ -78,7 +78,7 @@ namespace FMODUnity
         {
             if (error != null)
             {
-                Debug.LogErrorFormat("FMOD: Bank refresh failed: {0}", error);
+                RuntimeUtils.DebugLogErrorFormat("FMOD: Bank refresh failed: {0}", error);
             }
 
             if (instance != null)

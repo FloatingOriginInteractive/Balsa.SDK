@@ -18,13 +18,58 @@ namespace FMODUnity
 
         const string SearchButtonText = "Scan";
 
+        const int EventReferenceTransitionVersion = 0x00020200;
+
+        const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+
+        static readonly string HelpText =
+            string.Format("Click {0} to search your project for obsolete event references.", SearchButtonText);
+
+        private readonly string[] SearchFolders = {
+            "Assets",
+        };
+
+        private SceneSetup[] sceneSetup;
+
+        private IEnumerator<string> processingState;
+
+        private SearchProgress prefabProgress;
+        private SearchProgress sceneProgress;
+        private SearchProgress scriptableObjectProgress;
+
+        [SerializeField]
+        private List<Asset> assets = new List<Asset>();
+
+        [SerializeField]
+        private List<Component> components = new List<Component>();
+
+        [SerializeField]
+        private List<Task> tasks = new List<Task>();
+
+        private int executableTaskCount = 0;
+
+        private TreeViewState taskViewState = new TreeViewState();
+
+        private TaskView taskView;
+
+        [NonSerialized]
+        private GUIContent status = GUIContent.none;
+
+        [NonSerialized]
+        private Task selectedTask;
+
+        [NonSerialized]
+        private Vector2 manualDescriptionScrollPosition;
+
+        [NonSerialized]
+        private static GUIContent AssetContent = new GUIContent("Asset");
+        private static GUIContent ComponentTypeContent = new GUIContent("Component Type");
+        private static GUIContent GameObjectContent = new GUIContent("Game Object");
+
         string ExecuteButtonText()
         {
             return string.Format("Execute {0} Selected Tasks", executableTaskCount);
         }
-
-        static readonly string HelpText =
-            string.Format("Click {0} to search your project for obsolete event references.", SearchButtonText);
 
         [MenuItem(MenuPath)]
         public static void ShowWindow()
@@ -37,14 +82,10 @@ namespace FMODUnity
             updater.Show();
         }
 
-        const int EventReferenceTransitionVersion = 0x00020200;
-
         public static bool IsUpToDate()
         {
             return Settings.Instance.LastEventReferenceScanVersion >= EventReferenceTransitionVersion;
         }
-
-        private IEnumerator<string> processingState;
 
         private void BeginSearching()
         {
@@ -116,12 +157,6 @@ namespace FMODUnity
 
         private bool IsProcessing { get { return processingState != null; } }
 
-        private SceneSetup[] sceneSetup;
-
-        private readonly string[] SearchFolders = {
-            "Assets",
-        };
-
         private struct SearchProgress
         {
             private int maximum;
@@ -146,10 +181,6 @@ namespace FMODUnity
                 this.current = 0;
             }
         }
-
-        private SearchProgress prefabProgress;
-        private SearchProgress sceneProgress;
-        private SearchProgress scriptableObjectProgress;
 
         private IEnumerator<string> SearchProject()
         {
@@ -311,10 +342,12 @@ namespace FMODUnity
             {
                 return GetEmitterUpdateTasks(target as StudioEventEmitter);
             }
+#if UNITY_TIMELINE_EXIST
             else if (target is FMODEventPlayable)
             {
                 return GetPlayableUpdateTasks(target as FMODEventPlayable);
             }
+#endif
             else
             {
                 return GetGenericUpdateTasks(target);
@@ -331,11 +364,14 @@ namespace FMODUnity
                 StudioEventEmitter sourceEmitter = PrefabUtility.GetCorrespondingObjectFromSource(emitter);
                 PropertyModification[] modifications = PrefabUtility.GetPropertyModifications(emitter);
 
-                hasOwnEvent = modifications.Any(
-                    m => m.target == sourceEmitter && m.propertyPath == "Event");
+                if (modifications != null) // GetPropertyModifications returns null if the prefab instance is disconnected
+                {
+                    hasOwnEvent = modifications.Any(
+                        m => m.target == sourceEmitter && m.propertyPath == "Event");
 
-                hasOwnEventReference = modifications.Any(
-                    m => m.target == sourceEmitter && m.propertyPath.StartsWith("EventReference"));
+                    hasOwnEventReference = modifications.Any(
+                        m => m.target == sourceEmitter && m.propertyPath.StartsWith("EventReference"));
+                }
             }
 
             if (hasOwnEventReference)
@@ -395,15 +431,23 @@ namespace FMODUnity
             {
                 EditorEventRef editorEventRef = EventManager.EventFromPath(eventReference.Path);
 
-                if (editorEventRef == null)
+                if (editorEventRef != null)
                 {
-                    return null;
+                    if (eventReference.Guid != editorEventRef.Guid)
+                    {
+                        return Task.UpdateEventReferenceGuid(fieldName, eventReference.Guid, editorEventRef.Guid,
+                            eventReference.Path);
+                    }
                 }
-                
-                if (eventReference.Guid != editorEventRef.Guid)
+                else if (!eventReference.Guid.IsNull)
                 {
-                    return Task.UpdateEventReferenceGuid(fieldName, eventReference.Guid, editorEventRef.Guid,
-                        eventReference.Path);
+                    editorEventRef = EventManager.EventFromGUID(eventReference.Guid);
+
+                    if (editorEventRef != null)
+                    {
+                        return Task.UpdateEventReferencePath(fieldName, eventReference.Path, editorEventRef.Path,
+                            eventReference.Guid);
+                    }
                 }
             }
             else
@@ -414,6 +458,7 @@ namespace FMODUnity
             return null;
         }
 
+#if UNITY_TIMELINE_EXIST
         static IEnumerable<Task> GetPlayableUpdateTasks(FMODEventPlayable playable)
         {
             Task updateTask = GetUpdateEventReferenceTask(playable.eventReference, "eventReference");
@@ -436,8 +481,7 @@ namespace FMODUnity
                 }
             }
         }
-
-        const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+#endif
 
 #pragma warning disable 0618 // Suppress a warning about using the obsolete EventRefAttribute class
         static bool IsEventRef(FieldInfo field)
@@ -659,6 +703,21 @@ namespace FMODUnity
             public int AssetIndex; // index into the assets list
             public int ComponentIndex; // index into the components list
 
+            private Type type;
+            private string[] Data;
+
+            const string EmitterEventField = "Event";
+            const string EmitterEventReferenceField = "EventReference";
+            const string PlayableEventNameField = "eventName";
+            const string PlayableEventReferenceField = "eventReference";
+
+            private delegate string DescriptionDelegate(string[] data);
+            private delegate string ManualInstructionsDelegate(string[] data, Component component);
+            private delegate bool IsValidDelegate(string[] data, UnityEngine.Object target);
+            private delegate void ExecuteDelegate(string[] data, UnityEngine.Object target);
+
+            private static readonly Delegates[] Implementations;
+
             private enum Type
             {
                 EmitterClearEvent,
@@ -677,9 +736,6 @@ namespace FMODUnity
                 Count
             }
 
-            private Type type;
-            private string[] Data;
-
             // Suppress warnings about using the obsolete StudioEventEmitter.Event and FMODEventPlayable.eventName fields
 #pragma warning disable 0618
             public static Task ClearEvent(StudioEventEmitter emitter)
@@ -691,6 +747,7 @@ namespace FMODUnity
                 };
             }
 
+#if UNITY_TIMELINE_EXIST
             public static Task ClearEventName(FMODEventPlayable playable)
             {
                 return new Task()
@@ -699,6 +756,7 @@ namespace FMODUnity
                     Data = new string[] { playable.eventName },
                 };
             }
+#endif
 
             public static Task MoveEventToEventReference(StudioEventEmitter emitter)
             {
@@ -709,6 +767,8 @@ namespace FMODUnity
                 };
             }
 
+
+#if UNITY_TIMELINE_EXIST
             public static Task MoveEventNameToEventReference(FMODEventPlayable playable)
             {
                 return new Task()
@@ -717,6 +777,7 @@ namespace FMODUnity
                     Data = new string[] { playable.eventName },
                 };
             }
+#endif
 
             public static Task MoveEventOverrideToEventReference(StudioEventEmitter emitter)
             {
@@ -794,16 +855,6 @@ namespace FMODUnity
                 };
             }
 
-            const string EmitterEventField = "Event";
-            const string EmitterEventReferenceField = "EventReference";
-            const string PlayableEventNameField = "eventName";
-            const string PlayableEventReferenceField = "eventReference";
-
-            private delegate string DescriptionDelegate(string[] data);
-            private delegate string ManualInstructionsDelegate(string[] data, Component component);
-            private delegate bool IsValidDelegate(string[] data, UnityEngine.Object target);
-            private delegate void ExecuteDelegate(string[] data, UnityEngine.Object target);
-
             private struct Delegates
             {
                 public DescriptionDelegate Description;
@@ -811,8 +862,6 @@ namespace FMODUnity
                 public IsValidDelegate IsValid;
                 public ExecuteDelegate Execute;
             }
-
-            private static readonly Delegates[] Implementations;
 
             private static void Implement(Type type,
                 DescriptionDelegate Description,
@@ -953,6 +1002,8 @@ namespace FMODUnity
                         EditorUtility.SetDirty(emitter);
                     }
                 );
+
+#if UNITY_TIMELINE_EXIST
                 Implement(Type.PlayableClearEventName,
                     Description: (data) => {
                         return string.Format("Clear <b>'{0}'</b> from the <b>{1}</b> field", data[0], PlayableEventNameField);
@@ -993,6 +1044,7 @@ namespace FMODUnity
                         EditorUtility.SetDirty(playable);
                     }
                 );
+#endif
                 Implement(Type.GenericRemoveEventRefField,
                     Description: (data) => {
                         return string.Format("Remove field <b>{0}</b>", data[1]);
@@ -1453,9 +1505,6 @@ namespace FMODUnity
             }
         }
 
-        [SerializeField]
-        private List<Asset> assets = new List<Asset>();
-
         private int AddAsset(AssetType type, string path)
         {
             Asset asset = new Asset() {
@@ -1467,9 +1516,6 @@ namespace FMODUnity
 
             return assets.Count - 1;
         }
-
-        [SerializeField]
-        private List<Component> components = new List<Component>();
 
         private int AddComponent(MonoBehaviour behaviour, GameObject root)
         {
@@ -1500,11 +1546,6 @@ namespace FMODUnity
             return components.Count - 1;
         }
 
-        [SerializeField]
-        private List<Task> tasks = new List<Task>();
-
-        private int executableTaskCount = 0;
-
         private void UpdateExecutableTaskCount()
         {
             executableTaskCount = tasks.Count(t => t.CanExecute());
@@ -1533,10 +1574,6 @@ namespace FMODUnity
                 Repaint();
             }
         }
-
-        private TreeViewState taskViewState = new TreeViewState();
-
-        private TaskView taskView;
 
         void OnEnable()
         {
@@ -1717,24 +1754,10 @@ namespace FMODUnity
             }
         }
 
-        [NonSerialized]
-        private GUIContent status = GUIContent.none;
-
         private void SetStatus(string text)
         {
             status = new GUIContent(text, EditorGUIUtility.IconContent("console.infoicon.sml").image);
         }
-
-        [NonSerialized]
-        private Task selectedTask;
-
-        [NonSerialized]
-        private Vector2 manualDescriptionScrollPosition;
-
-        [NonSerialized]
-        private static GUIContent AssetContent = new GUIContent("Asset");
-        private static GUIContent ComponentTypeContent = new GUIContent("Component Type");
-        private static GUIContent GameObjectContent = new GUIContent("Game Object");
 
         private void OnGUI()
         {
@@ -1876,6 +1899,20 @@ namespace FMODUnity
 
         class TaskView : TreeView
         {
+            private List<Task> tasks;
+            private List<Asset> assets;
+            private List<Component> components;
+
+            public delegate void TaskEventHandler(Task task);
+
+            public event TaskEventHandler taskSelected;
+            public event TaskEventHandler taskDoubleClicked;
+            public event TaskEventHandler taskEnableStateChanged;
+
+            public delegate void AssetEventHandler(Asset asset);
+
+            public event AssetEventHandler assetEnableStateChanged;
+
             public TaskView(TreeViewState state, List<Task> tasks, List<Asset> assets, List<Component> components)
                 : base(state, new MultiColumnHeader(CreateHeaderState()))
             {
@@ -1923,10 +1960,6 @@ namespace FMODUnity
                 Asset,
                 Task,
             }
-
-            private List<Task> tasks;
-            private List<Asset> assets;
-            private List<Component> components;
 
             private class AssetItem : TreeViewItem
             {
@@ -1984,16 +2017,6 @@ namespace FMODUnity
 
                 return root;
             }
-
-            public delegate void TaskEventHandler(Task task);
-
-            public event TaskEventHandler taskSelected;
-            public event TaskEventHandler taskDoubleClicked;
-            public event TaskEventHandler taskEnableStateChanged;
-
-            public delegate void AssetEventHandler(Asset asset);
-
-            public event AssetEventHandler assetEnableStateChanged;
 
             protected override bool CanMultiSelect(TreeViewItem item)
             {

@@ -101,10 +101,10 @@ namespace FMODUnity
                 }
                 catch (BankLoadException e)
                 {
-                    UnityEngine.Debug.LogException(e);
+                    RuntimeUtils.DebugLogException(e);
                 }
             }
-            RuntimeManager.WaitForAllLoads();
+            RuntimeManager.WaitForAllSampleLoading();
         }
 
         public void Unload()

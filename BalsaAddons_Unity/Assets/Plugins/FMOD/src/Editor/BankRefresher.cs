@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace FMODUnity
 {
-    [InitializeOnLoad]
     public class BankRefresher
     {
         private static string currentWatchPath;
@@ -22,7 +21,7 @@ namespace FMODUnity
             autoRefresh = false;
         }
 
-        static BankRefresher()
+        public static void Startup()
         {
             sourceFileWatcher = new FileSystemWatcher();
             sourceFileWatcher.IncludeSubdirectories = true;
@@ -79,7 +78,7 @@ namespace FMODUnity
                 }
                 catch (ArgumentException e)
                 {
-                    Debug.LogWarningFormat("Error watching {0}: {1}", pathToWatch, e.Message);
+                    RuntimeUtils.DebugLogWarningFormat("Error watching {0}: {1}", pathToWatch, e.Message);
                 }
             }
         }

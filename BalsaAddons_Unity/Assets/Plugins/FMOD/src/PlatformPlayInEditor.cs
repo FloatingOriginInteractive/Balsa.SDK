@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -68,7 +69,7 @@ namespace FMODUnity
             string bankFolder = globalSettings.SourceBankPath;
             if (globalSettings.HasPlatforms)
             {
-                bankFolder = System.IO.Path.Combine(bankFolder, BuildDirectory);
+                bankFolder = RuntimeUtils.GetCommonPlatformPath(Path.Combine(bankFolder, BuildDirectory));
             } 
 
             return bankFolder;
@@ -77,7 +78,7 @@ namespace FMODUnity
 #if UNITY_EDITOR
         public override string GetPluginPath(string pluginName)
         {
-            string platformsFolder = string.Format("{0}/Plugins/FMOD/platforms", Application.dataPath);
+            string platformsFolder = $"{Application.dataPath}/{RuntimeUtils.PluginBasePath}/platforms";
 
 #if UNITY_EDITOR_WIN && UNITY_EDITOR_64
             return string.Format("{0}/win/lib/x86_64/{1}.dll", platformsFolder, pluginName);

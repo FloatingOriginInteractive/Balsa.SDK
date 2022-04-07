@@ -18,6 +18,21 @@ namespace FMODUnity
         }
 
         SerializedProperty outputProperty;
+
+        FolderEntry rootFolder;
+        FolderEntry currentFolder;
+        List<BankEntry> banks;
+
+        int lastHover = 0;
+        string eventFolder = "/";
+        string eventName = "";
+        string currentFilter = "";
+        int selectedBank = 0;
+        bool resetCursor = true;
+        Vector2 scrollPos = new Vector2();
+        Rect scrollRect = new Rect();
+        bool isConnected = false;
+
         internal void SelectEvent(SerializedProperty property)
         {
             outputProperty = property;
@@ -28,10 +43,6 @@ namespace FMODUnity
             public string name;
             public string guid;
         }
-
-        FolderEntry rootFolder;
-        FolderEntry currentFolder;
-        List<BankEntry> banks;
 
         public CreateEventPopup()
         {
@@ -101,19 +112,9 @@ namespace FMODUnity
             }
         }
 
-        int lastHover = 0;
-        string eventFolder = "/";
-        string eventName = "";
-        string currentFilter = "";
-        int selectedBank = 0;
-        bool resetCursor = true;
-        Vector2 scrollPos = new Vector2();
-        Rect scrollRect = new Rect();
-        bool isConnected = false;
-
         public void OnGUI()
         {
-            var borderIcon = EditorGUIUtility.Load("FMOD/Border.png") as Texture2D;
+            var borderIcon = EditorUtils.LoadImage("Border.png");
             var border = new GUIStyle(GUI.skin.box);
             border.normal.background = borderIcon;
             GUI.Box(new Rect(1, 1, position.width - 1, position.height - 1), GUIContent.none, border);
@@ -137,8 +138,8 @@ namespace FMODUnity
                 currentFolder = rootFolder;
             }
 
-            var arrowIcon = EditorGUIUtility.Load("FMOD/ArrowIcon.png") as Texture;
-            var hoverIcon = EditorGUIUtility.Load("FMOD/SelectedAlt.png") as Texture2D;
+            var arrowIcon = EditorUtils.LoadImage("ArrowIcon.png");
+            var hoverIcon = EditorUtils.LoadImage("SelectedAlt.png");
             var titleIcon = EditorGUIUtility.Load("IN BigTitle") as Texture2D;
 
             var nextEntry = currentFolder;

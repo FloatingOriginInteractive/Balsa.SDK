@@ -9,16 +9,16 @@ namespace FMODUnity
     [CustomPropertyDrawer(typeof(EventReference))]
     class EventReferenceDrawer : PropertyDrawer
     {
-        static readonly Texture RepairIcon = EditorGUIUtility.Load("FMOD/Wrench.png") as Texture;
-        static readonly Texture WarningIcon = EditorGUIUtility.Load("FMOD/NotFound.png") as Texture;
+        static readonly Texture RepairIcon = EditorUtils.LoadImage("Wrench.png");
+        static readonly Texture WarningIcon = EditorUtils.LoadImage("NotFound.png");
         static readonly GUIContent NotFoundWarning = new GUIContent("Event Not Found", WarningIcon);
+
+        static GUIStyle buttonStyle;
 
         private static Vector2 WarningSize()
         {
             return GUI.skin.label.CalcSize(NotFoundWarning);
         }
-
-        static GUIStyle buttonStyle;
 
         private static float GetBaseHeight()
         {
@@ -34,10 +34,10 @@ namespace FMODUnity
                 buttonStyle.padding.bottom = 1;
             }
 
-            Texture browseIcon = EditorGUIUtility.Load("FMOD/SearchIconBlack.png") as Texture;
-            Texture openIcon = EditorGUIUtility.Load("FMOD/BrowserIcon.png") as Texture;
-            Texture addIcon = EditorGUIUtility.Load("FMOD/AddIcon.png") as Texture;
-            Texture copyIcon = EditorGUIUtility.Load("FMOD/CopyIcon.png") as Texture;
+            Texture browseIcon = EditorUtils.LoadImage("SearchIconBlack.png");
+            Texture openIcon = EditorUtils.LoadImage("BrowserIcon.png");
+            Texture addIcon = EditorUtils.LoadImage("AddIcon.png");
+            Texture copyIcon = EditorUtils.LoadImage("CopyIcon.png");
 
             using (new EditorGUI.PropertyScope(position, label, property))
             {
@@ -185,12 +185,46 @@ namespace FMODUnity
                 }
                 else
                 {
-                    Rect labelRect = pathRect;
-                    labelRect.xMax = position.xMax;
-                    labelRect.y += baseHeight;
-                    labelRect.height = WarningSize().y;
+                    EditorEventRef renamedEvent = GetRenamedEventRef(eventReference);
 
-                    GUI.Label(labelRect, NotFoundWarning);
+                    if (renamedEvent != null)
+                    {
+                        MismatchInfo mismatch = new MismatchInfo() {
+                            Message = string.Format("Moved to {0}", renamedEvent.Path),
+                            HelpText = string.Format(
+                                "This event has been moved in FMOD Studio.\n" +
+                                "You can click the repair button to update the path to the new location, or run " +
+                                "the <b>{0}</b> command to scan your project for similar issues and fix them all.",
+                                EventReferenceUpdater.MenuPath),
+                            RepairTooltip = string.Format("Repair: set path to {0}", renamedEvent.Path),
+                            RepairAction = (p) => {
+                                p.FindPropertyRelative("Path").stringValue = renamedEvent.Path;
+                            },
+                        };
+
+                        using (new EditorGUI.IndentLevelScope())
+                        {
+                            Rect mismatchRect = pathRect;
+
+                            mismatchRect.xMin = position.xMin;
+                            mismatchRect.xMax = position.xMax;
+                            mismatchRect.y += baseHeight;
+                            mismatchRect.height = baseHeight;
+
+                            mismatchRect = EditorGUI.IndentedRect(mismatchRect);
+
+                            DrawMismatchUI(mismatchRect, openRect.x, openRect.width, mismatch, property);
+                        }
+                    }
+                    else
+                    {
+                        Rect labelRect = pathRect;
+                        labelRect.xMax = position.xMax;
+                        labelRect.y += baseHeight;
+                        labelRect.height = WarningSize().y;
+
+                        GUI.Label(labelRect, NotFoundWarning);
+                    }
                 }
             }
         }
@@ -331,6 +365,21 @@ namespace FMODUnity
             }
         }
 
+        private static EditorEventRef GetRenamedEventRef(EventReference eventReference)
+        {
+            if (Settings.Instance.EventLinkage == EventLinkage.Path && !eventReference.Guid.IsNull)
+            {
+                EditorEventRef editorEventRef = EventManager.EventFromGUID(eventReference.Guid);
+
+                if (editorEventRef != null && editorEventRef.Path != eventReference.Path)
+                {
+                    return editorEventRef;
+                }
+            }
+
+            return null;
+        }
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             float baseHeight = GetBaseHeight();
@@ -372,14 +421,6 @@ namespace FMODUnity
     {
         GUIStyle RichTextStyle;
 
-        void AffirmStyles()
-        {
-            if (RichTextStyle == null)
-            {
-                RichTextStyle = new GUIStyle(GUI.skin.label) { richText = true };
-            }
-        }
-
         const string HelpText =
             "This field has the <b>[EventRef]</b> attribute, which is obsolete.\n" +
             "To resolve this issue:\n" +
@@ -388,6 +429,17 @@ namespace FMODUnity
             "<b>[EventRef(MigrateTo=\"<fieldname>\")]</b>\n" +
             "* Run the <b>" + EventReferenceUpdater.MenuPath + "</b> command to " +
             "automatically migrate values from this field to the <b>EventReference</b> field";
+
+        static readonly Texture InfoIcon = EditorGUIUtility.IconContent("console.infoicon.sml").image;
+        static readonly Texture WarningIcon = EditorUtils.LoadImage("NotFound.png");
+
+        void AffirmStyles()
+        {
+            if (RichTextStyle == null)
+            {
+                RichTextStyle = new GUIStyle(GUI.skin.label) { richText = true };
+            }
+        }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -416,9 +468,6 @@ namespace FMODUnity
 
             EditorGUI.EndProperty();
         }
-
-        static readonly Texture InfoIcon = EditorGUIUtility.IconContent("console.infoicon.sml").image;
-        static readonly Texture WarningIcon = EditorGUIUtility.Load("FMOD/NotFound.png") as Texture;
 
         private GUIContent StatusContent(SerializedProperty property)
         {

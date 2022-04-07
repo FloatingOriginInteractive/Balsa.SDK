@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,10 +24,8 @@ namespace FMODUnity
         public float OverrideMaxDistance = -1.0f;
 
         protected FMOD.Studio.EventDescription eventDescription;
-        public  FMOD.Studio.EventDescription EventDescription { get { return eventDescription; } }
 
         protected FMOD.Studio.EventInstance instance;
-        public  FMOD.Studio.EventInstance EventInstance { get { return instance; } }
 
         private bool hasTriggered = false;
         private bool isQuitting = false;
@@ -34,6 +33,10 @@ namespace FMODUnity
         private List<ParamRef> cachedParams = new List<ParamRef>();
 
         private const string SnapshotString = "snapshot";
+
+        public FMOD.Studio.EventDescription EventDescription { get { return eventDescription; } }
+
+        public FMOD.Studio.EventInstance EventInstance { get { return instance; } }
 
         public bool IsActive { get; private set; }
 
@@ -57,26 +60,15 @@ namespace FMODUnity
             }
         }
 
-        void Start() 
+        protected override void Start() 
         {
             RuntimeUtils.EnforceLibraryOrder();
             if (Preload)
             {
                 Lookup();
                 eventDescription.loadSampleData();
-                RuntimeManager.StudioSystem.update();
-                FMOD.Studio.LOADING_STATE loadingState;
-                eventDescription.getSampleLoadingState(out loadingState);
-                while(loadingState == FMOD.Studio.LOADING_STATE.LOADING)
-                {
-                    #if WINDOWS_UWP
-                    System.Threading.Tasks.Task.Delay(1).Wait();
-                    #else
-                    System.Threading.Thread.Sleep(1);
-                    #endif
-                    eventDescription.getSampleLoadingState(out loadingState);
-                }
             }
+
             HandleGameEvent(EmitterGameEvent.ObjectStart);
         }
 
@@ -85,7 +77,7 @@ namespace FMODUnity
             isQuitting = true;
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
             if (!isQuitting)
             {

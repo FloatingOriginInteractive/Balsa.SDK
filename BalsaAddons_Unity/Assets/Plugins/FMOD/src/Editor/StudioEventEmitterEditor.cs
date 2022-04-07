@@ -74,12 +74,6 @@ namespace FMODUnity
             if (EditorGUI.EndChangeCheck())
             {
                 EditorUtils.UpdateParamsOnEmitter(serializedObject, eventPath.stringValue);
-                if (editorEvent != null)
-                {
-                    overrideAtt.boolValue = false;
-                    minDistance.floatValue = editorEvent.MinDistance;
-                    maxDistance.floatValue = editorEvent.MaxDistance;
-                }
             }
 
             // Attenuation
@@ -88,9 +82,8 @@ namespace FMODUnity
                 {
                     EditorGUI.BeginDisabledGroup(editorEvent == null || !editorEvent.Is3D);
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.PrefixLabel("Override Attenuation");
                     EditorGUI.BeginChangeCheck();
-                    overrideAtt.boolValue = EditorGUILayout.Toggle(overrideAtt.boolValue, GUILayout.Width(20));
+                    EditorGUILayout.PropertyField(overrideAtt);
                     if (EditorGUI.EndChangeCheck() ||
                         (minDistance.floatValue == -1 && maxDistance.floatValue == -1) // never been initialiased
                         )
@@ -100,10 +93,18 @@ namespace FMODUnity
                     }
                     EditorGUI.BeginDisabledGroup(!overrideAtt.boolValue);
                     EditorGUIUtility.labelWidth = 30;
-                    minDistance.floatValue = EditorGUILayout.FloatField("Min", minDistance.floatValue);
-                    minDistance.floatValue = Mathf.Clamp(minDistance.floatValue, 0, maxDistance.floatValue);
-                    maxDistance.floatValue = EditorGUILayout.FloatField("Max", maxDistance.floatValue);
-                    maxDistance.floatValue = Mathf.Max(minDistance.floatValue, maxDistance.floatValue);
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUILayout.PropertyField(minDistance, new GUIContent("Min"));
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        minDistance.floatValue = Mathf.Clamp(minDistance.floatValue, 0, maxDistance.floatValue);
+                    }
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUILayout.PropertyField(maxDistance, new GUIContent("Max"));
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        maxDistance.floatValue = Mathf.Max(minDistance.floatValue, maxDistance.floatValue);
+                    }
                     EditorGUIUtility.labelWidth = 0;
                     EditorGUI.EndDisabledGroup();
                     EditorGUILayout.EndHorizontal();
@@ -133,6 +134,14 @@ namespace FMODUnity
             // This holds one SerializedObject for each object in the current selection.
             private List<SerializedObject> serializedTargets = new List<SerializedObject>();
 
+            // Mappings from EditorParamRef to initial parameter value property for all properties
+            // found in the current selection.
+            private List<PropertyRecord> propertyRecords = new List<PropertyRecord>();
+
+            // Any parameters that are in the current event but are missing from some objects in
+            // the current selection, so we can put them in the "Add" menu.
+            private List<EditorParamRef> missingParameters = new List<EditorParamRef>();
+
             // A mapping from EditorParamRef to the initial parameter value properties in the
             // current selection that have the same name.
             // We need this because some objects may be missing some properties, and properties with
@@ -143,14 +152,6 @@ namespace FMODUnity
                 public EditorParamRef paramRef;
                 public List<SerializedProperty> valueProperties;
             }
-
-            // Mappings from EditorParamRef to initial parameter value property for all properties
-            // found in the current selection.
-            private List<PropertyRecord> propertyRecords = new List<PropertyRecord>();
-
-            // Any parameters that are in the current event but are missing from some objects in
-            // the current selection, so we can put them in the "Add" menu.
-            private List<EditorParamRef> missingParameters = new List<EditorParamRef>();
 
             public ParameterValueView(SerializedObject serializedObject)
             {

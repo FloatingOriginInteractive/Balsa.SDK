@@ -6,6 +6,16 @@ namespace FMODUnity
     {
         public string CollisionTag = "";
 
+        protected virtual void Start()
+        {
+            HandleGameEvent(EmitterGameEvent.ObjectStart);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            HandleGameEvent(EmitterGameEvent.ObjectDestroy);
+        }
+
         void OnEnable()
         {
             HandleGameEvent(EmitterGameEvent.ObjectEnable);
