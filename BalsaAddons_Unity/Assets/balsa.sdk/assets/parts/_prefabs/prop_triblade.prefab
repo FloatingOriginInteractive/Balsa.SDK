@@ -584,6 +584,7 @@ MonoBehaviour:
   specificThrust: 0.02
   specificTorque: 0.004
   propInertia: 0.2
+  pushOrPull: 1
 --- !u!114 &1512683868412771381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,11 +1040,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1854848102
-      Data2: 1117236690
-      Data3: 787897248
-      Data4: 1768243748
-    Path: event:/prop_small
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: event:/props/prop_small
   Event: 
   PlayEvent: 0
   StopEvent: 0

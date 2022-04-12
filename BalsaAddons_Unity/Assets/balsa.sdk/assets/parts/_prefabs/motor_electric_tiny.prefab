@@ -794,11 +794,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 331014725
-      Data2: 1301159331
-      Data3: -709112176
-      Data4: -982756694
-    Path: event:/motor_electric_small
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: event:/engines/motor_electric_small
   Event: 
   PlayEvent: 0
   StopEvent: 0
