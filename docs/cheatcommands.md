@@ -25,7 +25,8 @@ Command | Description
 `/runsonfumes` | Engines continue to run after Fuel/Battery runs out
 `/inthrustwetrust` | Thrust output multiplier: 3x
 `/jebediah` | Thrust output multiplier: 10x
-`/grabbity` | The player ignores the effects of gravity while jumping, until the `Jump` key is released.
+`/grabbity` | Player disregards the third law of motion and can jump while airborne.
+`/import antigravity` | The player ignores the effects of gravity while jumping, until the `Jump` key is released.
 `/pocketknife` | Open the vehicle editor immediately, wherever the player is.
 `/ask mr ari` | Starts the Editor Walkthrough tutorial (deprecated, probably no longer functional. You probably shouldn't use this one)
 `/instructable me` | Starts the Intro Walkthrough tutorial 
