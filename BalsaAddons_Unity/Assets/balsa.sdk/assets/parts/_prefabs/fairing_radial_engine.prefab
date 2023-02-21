@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.2646}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 2
@@ -44,8 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: fore
+  strictAlignPos: 0
+  strictAlignRot: 0
   profile: typeR1
   type: 0
+  stackProfile: {fileID: 0}
 --- !u!1 &1271844300574750
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +78,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.025, y: 0.025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 5
@@ -131,6 +136,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4218585097821352}
   - {fileID: 4252395257861850}
@@ -173,6 +179,7 @@ Transform:
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.000000029802319}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 3
@@ -190,8 +197,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: aft
+  strictAlignPos: 0
+  strictAlignRot: 0
   profile: typeR1
   type: 0
+  stackProfile: {fileID: 0}
 --- !u!1 &1558238267402166
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +229,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.1229}
   m_LocalScale: {x: 0.17362829, y: 0.123317346, z: 0.17362829}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 0
@@ -264,6 +275,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.70710677, z: 0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: -0.0882, z: 0.1173}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 6
@@ -281,8 +293,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: srf
+  strictAlignPos: 0
+  strictAlignRot: 0
   profile: 
   type: 1
+  stackProfile: {fileID: 0}
 --- !u!1 &1821949195639400
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +326,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.000000019073486, y: -0.0015594291, z: 0.13392513}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 1
@@ -334,10 +350,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -362,6 +380,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1854159473454050
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +411,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.9789002, y: 0.2187, z: -2.3530002}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4521477219970454}
   m_Father: {fileID: 0}
@@ -409,9 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 353257624, guid: 1222e99fcecc21b4b97fdf8d10737f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableExport: 1
-  ouputFolder: output
-  isCfgVariant: 0
   partName: fairing_radial_engine
   partTitle: R5-R1 Radial Nacelle
   shortName: Engine Fairing
@@ -422,22 +439,31 @@ MonoBehaviour:
     Let
     that molded radial engine design take you back to a time where fuel was cheap,
     and oil was spluttering everywhere. Motor sold separately. '
-  fobFile: fairing_radial_engine.fob
-  assetPath: Assets/__partABtoolsExport/fairing_radial_engine.prefab
   cost: 11
   repairCost: 1
   xpcost: 250
-  model: {fileID: 114253225089250814}
-  modules: []
-  iconFitter: {fileID: 114727106567750564}
-  primaryAttachMethod: 0
-  initialGrabAnchor: 0
   PartListData:
     unlisted: 0
     tags:
     - fairing
     - nacelle
     - fuselage
+  symmetryPreference: 0
+  primaryAttachMethod: 0
+  initialGrabAnchor: 0
+  noSymmetryCenterlineMerge: 0
+  canBeVehicleRoot: 0
+  noSurfaceAttach: 0
+  noMoveOffset: 0
+  noRotateOffset: 0
+  enableExport: 1
+  isCfgVariant: 0
+  outputFolder: output
+  fobFile: fairing_radial_engine.fob
+  assetPath: Assets/__partABtoolsExport/fairing_radial_engine.prefab
+  model: {fileID: 114253225089250814}
+  modules: []
+  iconFitter: {fileID: 114727106567750564}
 --- !u!114 &114253225089250814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: -1
+  calculatedDensity: NaN
+  _volumetrics: {fileID: 0}
   mass: 0.07061044
   CenterOfMass: {x: 2.0446009e-10, y: 0.000000019237255, z: 0.12290001}
   AngularDrag: 0
@@ -515,6 +543,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 4
@@ -538,10 +567,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -566,6 +597,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &999630406243696567
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +625,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.09039998}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 8
@@ -610,6 +643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: bottom
+  strictAlignPos: 0
+  strictAlignRot: 0
   atQuad:
     position: {x: 0, y: -0.06333296, z: -0.0072438717}
     normal: {x: 0.0000004048011, y: 1, z: -7.2823774e-16}
@@ -623,6 +658,7 @@ MonoBehaviour:
     size: {x: 0.092027664, y: 0.18772316}
   twoSided: 0
   isInternal: 1
+  viewSpace: 2
 --- !u!1 &1128898120829513099
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +686,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.1742}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 10
@@ -667,6 +704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: center
+  strictAlignPos: 0
+  strictAlignRot: 0
   atQuad:
     position: {x: 0, y: 0, z: -0.0072438717}
     normal: {x: 0, y: 0, z: -1}
@@ -680,6 +719,7 @@ MonoBehaviour:
     size: {x: 0.18772316, y: 0.15656772}
   twoSided: 0
   isInternal: 1
+  viewSpace: 2
 --- !u!1 &6196032039496427507
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +747,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.0904}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 7
@@ -724,6 +765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: top
+  strictAlignPos: 0
+  strictAlignRot: 0
   atQuad:
     position: {x: 0, y: 0.06333299, z: -0.0072438717}
     normal: {x: 0, y: -1, z: 0}
@@ -737,6 +780,7 @@ MonoBehaviour:
     size: {x: 0.092027664, y: 0.18772316}
   twoSided: 0
   isInternal: 1
+  viewSpace: 2
 --- !u!1 &8370689622997804437
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +808,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.0917}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4521477219970454}
   m_RootOrder: 9
@@ -781,6 +826,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: center
+  strictAlignPos: 0
+  strictAlignRot: 0
   atQuad:
     position: {x: 0, y: 0, z: -0.0072438717}
     normal: {x: 1, y: 0, z: 0}
@@ -794,3 +841,4 @@ MonoBehaviour:
     size: {x: 0.18772316, y: 0.15656772}
   twoSided: 1
   isInternal: 1
+  viewSpace: 2
